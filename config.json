@@ -23,7 +23,7 @@
   "gfx_driver": "VMware / VirtualBox (open-source)",
   "audio": "pipewire",
   "kernels": ["linux", "linux-lts"],
-  "packages": [],
+  "packages": ["zsh"],
   "services": [],
   "nic": {
     "dhcp": true,
