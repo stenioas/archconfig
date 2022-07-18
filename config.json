@@ -1,8 +1,14 @@
 {
-  "script": "guided",
-  "silent": false,
+  "additional-repositories": ["multilib"],
+  "audio": "pipewire",
+  "bootloader": "grub-install",
   "custom-commands": [],
-  "keyboard-language": "br",
+  "filesystem": "btrfs",
+  "gfx_driver": "VMware / VirtualBox (open-source)",
+  "harddrives": ["/dev/sda"],
+  "hostname": "vboxpc",
+  "kernels": ["linux", "linux-lts"],
+  "keyboard-language": "br-abnt2",
   "mirror-region": {
     "Brazil": {
       "http://archlinux.c3sl.ufpr.br/$repo/os/$arch": true,
@@ -12,19 +18,6 @@
       "http://mirror.ufscar.br/archlinux/$repo/os/$arch": true
     }
   },
-  "sys-language": "pt_BR.UTF-8",
-  "sys-encoding": "UTF-8",
-  "harddrive": { "path": ["/dev/sda"] },
-  "filesystem": "btrfs",
-  "bootloader": "grub-install",
-  "swap": false,
-  "hostname": "vboxpc",
-  "profile": "kde",
-  "gfx_driver": "VMware / VirtualBox (open-source)",
-  "audio": "pipewire",
-  "kernels": ["linux", "linux-lts"],
-  "packages": ["zsh"],
-  "services": [],
   "nic": {
     "dhcp": true,
     "dns": null,
@@ -33,7 +26,14 @@
     "ip": null,
     "type": "nm"
   },
-  "timezone": "America/Fortaleza",
   "ntp": true,
-  "additional-repositories": ["multilib"]
+  "packages": [],
+  "profile": "kde",
+  "services": [],
+  "script": "guided",
+  "silent": false,
+  "swap": false,
+  "sys-encoding": "UTF-8",
+  "sys-language": "pt_BR.UTF-8",
+  "timezone": "America/Fortaleza"
 }
