@@ -1,44 +1,50 @@
 {
-    "additional-repositories": [],
-    "archinstall-language": "English",
-    "audio": "pipewire",
-    "bootloader": "systemd-bootctl",
-    "custom-commands": [],
-    "config_version": "2.5.0",
-    "debug": false,
-    "desktop-environment": "awesome",
-    "gfx_driver": "VMware / VirtualBox (open-source)",
-    "harddrives": [
-        "/dev/sda"
-    ],
-    "hostname": "vbox",
-    "kernels": [
-        "linux-lts"
-    ],
-    "keyboard-layout": "br-abnt2",
-    "mirror-region": {},
-    "mount_point": null,
-    "nic": {
-        "dhcp": true,
-        "dns": null,
-        "gateway": null,
-        "iface": null,
-        "ip": null,
-        "type": "nm"
-    },
-    "ntp": true,
-    "packages": [],
-    "plugin": null,
-    "profile": {
-        "path": "/usr/lib/python3.10/site-packages/archinstall/profiles/desktop.py"
-    },
-    "save_config": null,
-    "script": "guided",
-    "services": [],
-    "silent": false,
-    "swap": true,
-    "sys-encoding": "UTF-8",
-    "sys-language": "pt_BR.UTF-8",
-    "timezone": "UTC",
-    "version": "2.5.0"
+  "additional-repositories": [],
+  "archinstall-language": "English",
+  "audio": "pipewire",
+  "bootloader": "grub-install",
+  "custom-commands": [],
+  "config_version": "2.5.0",
+  "debug": false,
+  "desktop-environment": "gnome",
+  "gfx_driver": "Nvidia",
+  "harddrives": [
+    "/dev/nvme0n1"
+  ],
+  "hostname": "nitro5",
+  "kernels": [
+    "linux"
+  ],
+  "keyboard-layout": "br-abnt2",
+  "mirror-region": {},
+  "mount_point": null,
+  "nic": {
+    "dhcp": true,
+    "dns": null,
+    "gateway": null,
+    "iface": null,
+    "ip": null,
+    "type": "nm"
+  },
+  "ntp": true,
+  "packages": [],
+  "plugin": null,
+  "profile": {
+    "path": "/usr/lib/python3.10/site-packages/archinstall/profiles/desktop.py"
+  },
+  "services": [],
+  "silent": false,
+  "swap": true,
+  "sys-encoding": "UTF-8",
+  "sys-language": "pt_BR.UTF-8",
+  "timezone": "America/Fortaleza",
+  "version": "2.5.0",
+  "!root-password": "password",
+  "!users": [
+    {
+      "username": "stenioas",
+      "!password": "password",
+      "sudo": true
+    }
+  ]
 }
