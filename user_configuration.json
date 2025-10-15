@@ -87,12 +87,7 @@
         ],
         "wipe": true
       }
-    ],
-    "disk_encryption": {
-      "encryption_type": "luks",
-      "lvm_volumes": [],
-      "partitions": []
-    }
+    ]
   },
   "hostname": "gbook4",
   "kernels": ["linux", "linux-lts"],
