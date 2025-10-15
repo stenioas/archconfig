@@ -1,6 +1,6 @@
 {
   "app_config": null,
-  "archinstall-language": "Brazilian Portuguese",
+  "archinstall-language": "English",
   "auth_config": {},
   "bootloader": "Systemd-boot",
   "custom_commands": [],
