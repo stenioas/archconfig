@@ -91,7 +91,7 @@
     "disk_encryption": {
       "encryption_type": "luks",
       "lvm_volumes": [],
-      "partitions": ["/dev/sda2"]
+      "partitions": []
     }
   },
   "hostname": "gbook4",
