@@ -22,6 +22,7 @@
             "fs_type": "fat32",
             "mount_options": [],
             "mountpoint": "/boot",
+            "obj_id": "799a6fea-3968-4c3e-96bc-fdc01bb1966b",
             "size": {
               "sector_size": {
                 "unit": "B",
@@ -65,6 +66,7 @@
             "fs_type": "btrfs",
             "mount_options": ["compress=zstd"],
             "mountpoint": null,
+            "obj_id": "027c76c7-4610-43dd-939a-6a578dff9b3a",
             "size": {
               "sector_size": {
                 "unit": "B",
@@ -87,7 +89,12 @@
         ],
         "wipe": true
       }
-    ]
+    ],
+    "disk_encryption": {
+      "encryption_type": "luks",
+      "lvm_volumes": [],
+      "partitions": ["027c76c7-4610-43dd-939a-6a578dff9b3a"]
+    }
   },
   "hostname": "gbook4",
   "kernels": ["linux", "linux-lts"],
