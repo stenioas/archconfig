@@ -27,16 +27,16 @@
                 "unit": "B",
                 "value": 512
               },
-              "unit": "B",
-              "value": 2147483648
+              "unit": "GiB",
+              "value": 2
             },
             "start": {
               "sector_size": {
                 "unit": "B",
                 "value": 512
               },
-              "unit": "B",
-              "value": 1048576
+              "unit": "MiB",
+              "value": 1
             },
             "status": "create",
             "type": "primary"
@@ -78,8 +78,8 @@
                 "unit": "B",
                 "value": 512
               },
-              "unit": "B",
-              "value": 2148532224
+              "unit": "GiB",
+              "value": 2
             },
             "status": "create",
             "type": "primary"
@@ -91,7 +91,7 @@
     "disk_encryption": {
       "encryption_type": "luks",
       "lvm_volumes": [],
-      "partitions": []
+      "partitions": ["/dev/nvme0n1p2"]
     }
   },
   "hostname": "gbook4",
@@ -129,5 +129,13 @@
   "services": [],
   "swap": true,
   "timezone": "America/Fortaleza",
+  "!users": [
+    {
+      "username": "stenioas",
+      "!password": "changeme",
+      "sudo": true
+    }
+  ],
+  "!encryption_password": "changeme",
   "version": "3.0.11"
 }
