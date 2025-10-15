@@ -4,96 +4,7 @@
   "auth_config": {},
   "bootloader": "Systemd-boot",
   "custom_commands": [],
-  "disk_config": {
-    "btrfs_options": {
-      "snapshot_config": {
-        "type": "Snapper"
-      }
-    },
-    "config_type": "default_layout",
-    "device_modifications": [
-      {
-        "device": "/dev/nvme0n1",
-        "partitions": [
-          {
-            "btrfs": [],
-            "dev_path": null,
-            "flags": ["boot", "esp"],
-            "fs_type": "fat32",
-            "mount_options": [],
-            "mountpoint": "/boot",
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "GiB",
-              "value": 2
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "MiB",
-              "value": 1
-            },
-            "status": "create",
-            "type": "primary"
-          },
-          {
-            "btrfs": [
-              {
-                "mountpoint": "/",
-                "name": "@"
-              },
-              {
-                "mountpoint": "/home",
-                "name": "@home"
-              },
-              {
-                "mountpoint": "/var/log",
-                "name": "@log"
-              },
-              {
-                "mountpoint": "/var/cache/pacman/pkg",
-                "name": "@pkg"
-              }
-            ],
-            "dev_path": null,
-            "flags": [],
-            "fs_type": "btrfs",
-            "mount_options": ["compress=zstd"],
-            "mountpoint": null,
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "percent",
-              "value": 100
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "GiB",
-              "value": 2
-            },
-            "status": "create",
-            "type": "primary"
-          }
-        ],
-        "wipe": true
-      }
-    ],
-    "disk_encryption": {
-      "encryption_type": "luks",
-      "lvm_volumes": [],
-      "partitions": ["/dev/nvme0n1p2"]
-    }
-  },
+  "disk_config": null,
   "hostname": "gbook4",
   "kernels": ["linux", "linux-lts"],
   "locale_config": {
@@ -136,6 +47,5 @@
       "sudo": true
     }
   ],
-  "!encryption_password": "changeme",
   "version": "3.0.11"
 }
