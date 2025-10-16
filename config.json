@@ -6,9 +6,7 @@
   "custom_commands": [],
   "disk_config": {
     "btrfs_options": {
-      "snapshot_config": {
-        "type": "Snapper"
-      }
+      "snapshot_config": null
     },
     "config_type": "default_layout",
     "device_modifications": [
@@ -59,6 +57,10 @@
               {
                 "mountpoint": "/var/cache/pacman/pkg",
                 "name": "@pkg"
+              },
+              {
+                "mountpoint": "/.snapshots",
+                "name": "@snapshots"
               }
             ],
             "dev_path": null,
