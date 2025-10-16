@@ -72,16 +72,16 @@
                 "unit": "B",
                 "value": 512
               },
-              "unit": "percent",
-              "value": 100
+              "unit": "B",
+              "value": 51537510400
             },
             "start": {
               "sector_size": {
                 "unit": "B",
                 "value": 512
               },
-              "unit": "GiB",
-              "value": 2
+              "unit": "B",
+              "value": 2123366400
             },
             "status": "create",
             "type": "primary"
@@ -89,14 +89,9 @@
         ],
         "wipe": true
       }
-    ],
-    "disk_encryption": {
-      "encryption_type": "luks",
-      "lvm_volumes": [],
-      "partitions": ["027c76c7-4610-43dd-939a-6a578dff9b3a"]
-    }
+    ]
   },
-  "hostname": "gbook4",
+  "hostname": "archlinux",
   "kernels": ["linux", "linux-lts"],
   "locale_config": {
     "kb_layout": "us-acentos",
@@ -135,7 +130,8 @@
     {
       "username": "stenioas",
       "!password": "changeme",
-      "sudo": true
+      "sudo": true,
+      "groups": []
     }
   ],
   "version": "3.0.11"
