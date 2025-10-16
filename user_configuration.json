@@ -28,16 +28,16 @@
                 "unit": "B",
                 "value": 512
               },
-              "unit": "GiB",
-              "value": 2
+              "unit": "B",
+              "value": 2147483648
             },
             "start": {
               "sector_size": {
                 "unit": "B",
                 "value": 512
               },
-              "unit": "MiB",
-              "value": 1
+              "unit": "sectors",
+              "value": 2048
             },
             "status": "create",
             "type": "primary"
@@ -59,6 +59,10 @@
               {
                 "mountpoint": "/var/cache/pacman/pkg",
                 "name": "@pkg"
+              },
+              {
+                "mountpoint": "/.snapshots",
+                "name": "@snapshots"
               }
             ],
             "dev_path": null,
@@ -80,8 +84,8 @@
                 "unit": "B",
                 "value": 512
               },
-              "unit": "B",
-              "value": 2123366400
+              "unit": "sectors",
+              "value": 4196352
             },
             "status": "create",
             "type": "primary"
