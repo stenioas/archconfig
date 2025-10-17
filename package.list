@@ -88,11 +88,14 @@ ttf-jetbrains-mono
 ttf-jetbrains-mono-nerd
 
 # NVIDIA
-dkms
-nvidia-dkms
-nvidia-settings
-nvidia-utils
-libva-nvidia-driver
+#dkms
+#nvidia-dkms
+#nvidia-settings
+#nvidia-utils
+#libva-nvidia-driver
+
+# VIRTUALBOX
+mesa
 
 # SOFTWARES
 firefox
