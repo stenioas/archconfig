@@ -8,6 +8,7 @@ zip
 unzip
 fd
 python
+go
 fuse2
 bluez
 bluez-utils
