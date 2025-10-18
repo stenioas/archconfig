@@ -11,6 +11,7 @@ python
 go
 fuse2
 bluez
+bluez-libs
 bluez-utils
 
 # UTILS
