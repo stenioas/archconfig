@@ -15,18 +15,7 @@
   "mirror_config": {
     "custom_repositories": [],
     "custom_servers": [],
-    "mirror_regions": {
-      "Brazil": [
-        "http://br.mirrors.cicku.me/archlinux/$repo/os/$arch",
-        "https://br.mirrors.cicku.me/archlinux/$repo/os/$arch",
-        "http://archlinux.c3sl.ufpr.br/$repo/os/$arch",
-        "http://mirrors.ic.unicamp.br/archlinux/$repo/os/$arch",
-        "https://mirrors.ic.unicamp.br/archlinux/$repo/os/$arch",
-        "http://mirror.ufscar.br/archlinux/$repo/os/$arch",
-        "https://archlinux.c3sl.ufpr.br/$repo/os/$arch",
-        "https://mirror.ufscar.br/archlinux/$repo/os/$arch"
-      ]
-    },
+    "mirror_regions": null,
     "optional_repositories": ["multilib"]
   },
   "network_config": {
