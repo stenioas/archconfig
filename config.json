@@ -3,99 +3,9 @@
   "archinstall-language": "English",
   "auth_config": {},
   "bootloader": "Systemd-boot",
-  "custom_commands": [
-    "su stenioas -c 'systemctl --user enable pipewire pipewire-pulse wireplumber'"
-  ],
-  "disk_config": {
-    "btrfs_options": {
-      "snapshot_config": null
-    },
-    "config_type": "default_layout",
-    "device_modifications": [
-      {
-        "device": "/dev/vda",
-        "partitions": [
-          {
-            "btrfs": [],
-            "dev_path": null,
-            "flags": ["boot", "esp"],
-            "fs_type": "fat32",
-            "mount_options": [],
-            "mountpoint": "/boot",
-            "obj_id": "799a6fea-3968-4c3e-96bc-fdc01bb1966b",
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "B",
-              "value": 2147483648
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "sectors",
-              "value": 2048
-            },
-            "status": "create",
-            "type": "primary"
-          },
-          {
-            "btrfs": [
-              {
-                "mountpoint": "/",
-                "name": "@"
-              },
-              {
-                "mountpoint": "/home",
-                "name": "@home"
-              },
-              {
-                "mountpoint": "/var/log",
-                "name": "@log"
-              },
-              {
-                "mountpoint": "/var/cache/pacman/pkg",
-                "name": "@pkg"
-              },
-              {
-                "mountpoint": "/.snapshots",
-                "name": "@snapshots"
-              }
-            ],
-            "dev_path": null,
-            "flags": [],
-            "fs_type": "btrfs",
-            "mount_options": ["compress=zstd"],
-            "mountpoint": null,
-            "obj_id": "027c76c7-4610-43dd-939a-6a578dff9b3a",
-            "size": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "B",
-              "value": 51537510400
-            },
-            "start": {
-              "sector_size": {
-                "unit": "B",
-                "value": 512
-              },
-              "unit": "sectors",
-              "value": 4196352
-            },
-            "status": "create",
-            "type": "primary"
-          }
-        ],
-        "wipe": true
-      }
-    ]
-  },
-  "hostname": "arch",
+  "custom_commands": [],
+  "disk_config": null,
+  "hostname": "archlinux",
   "kernels": ["linux", "linux-lts"],
   "locale_config": {
     "kb_layout": "us-acentos",
@@ -107,14 +17,14 @@
     "custom_servers": [],
     "mirror_regions": {
       "Brazil": [
-        "http://archlinux.c3sl.ufpr.br/$repo/os/$arch",
-        "https://archlinux.c3sl.ufpr.br/$repo/os/$arch",
         "http://br.mirrors.cicku.me/archlinux/$repo/os/$arch",
         "https://br.mirrors.cicku.me/archlinux/$repo/os/$arch",
-        "http://mirror.ufscar.br/archlinux/$repo/os/$arch",
-        "https://mirror.ufscar.br/archlinux/$repo/os/$arch",
+        "http://archlinux.c3sl.ufpr.br/$repo/os/$arch",
         "http://mirrors.ic.unicamp.br/archlinux/$repo/os/$arch",
-        "https://mirrors.ic.unicamp.br/archlinux/$repo/os/$arch"
+        "https://mirrors.ic.unicamp.br/archlinux/$repo/os/$arch",
+        "http://mirror.ufscar.br/archlinux/$repo/os/$arch",
+        "https://archlinux.c3sl.ufpr.br/$repo/os/$arch",
+        "https://mirror.ufscar.br/archlinux/$repo/os/$arch"
       ]
     },
     "optional_repositories": ["multilib"]
@@ -123,94 +33,11 @@
     "type": "nm"
   },
   "ntp": true,
-  "packages": [
-    "linux-headers",
-    "linux-lts-headers",
-    "git",
-    "nano",
-    "wget",
-    "zip",
-    "unzip",
-    "fd",
-    "python",
-    "go",
-    "fuse2",
-    "bluez",
-    "bluez-libs",
-    "bluez-utils",
-    "btop",
-    "bash-completion",
-    "openssh",
-    "cmake",
-    "reflector",
-    "man-db",
-    "man-pages",
-    "python-gobject",
-    "sassc",
-    "fastfetch",
-    "snapper",
-    "sof-firmware",
-    "pipewire",
-    "pipewire-alsa",
-    "pipewire-jack",
-    "pipewire-pulse",
-    "pipewire-audio",
-    "wireplumber",
-    "lib32-pipewire",
-    "pavucontrol",
-    "gstreamer",
-    "gst-libav",
-    "gst-plugins-base",
-    "gst-plugins-good",
-    "gst-plugins-bad",
-    "gst-plugins-ugly",
-    "ffmpeg",
-    "ly",
-    "hyprland",
-    "hyprlock",
-    "hypridle",
-    "hyprcursor",
-    "hyprpaper",
-    "hyprpicker",
-    "hyprpolkitagent",
-    "waybar",
-    "kitty",
-    "rofi-wayland",
-    "xdg-desktop-portal-hyprland",
-    "xdg-desktop-portal-gtk",
-    "xdg-user-dirs-gtk",
-    "qt5-wayland",
-    "qt6-wayland",
-    "cliphist",
-    "grim",
-    "slurp",
-    "dunst",
-    "thunar",
-    "thunar-volman",
-    "thunar-archive-plugin",
-    "tumbler",
-    "gvfs",
-    "ffmpegthumbnailer",
-    "nwg-look",
-    "nwg-displays",
-    "yazi",
-    "mpv",
-    "papirus-icon-theme",
-    "noto-fonts",
-    "noto-fonts-emoji",
-    "noto-fonts-cjk",
-    "ttf-liberation",
-    "otf-font-awesome",
-    "ttf-jetbrains-mono",
-    "ttf-jetbrains-mono-nerd",
-    "mesa",
-    "firefox",
-    "firefox-i18n-pt-br"
-  ],
+  "packages": [],
   "parallel_downloads": 0,
   "profile_config": null,
   "script": null,
-  "services": ["fstrim.timer", "bluetooth", "ly.service"],
+  "services": [],
   "swap": true,
   "timezone": "America/Fortaleza",
   "!users": [
