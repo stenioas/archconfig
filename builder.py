@@ -24,7 +24,6 @@ base_modules = load_jsonc("./modules/base.jsonc")
 environments_modules = load_jsonc("./modules/environments.jsonc")
 graphics_modules = load_jsonc("./modules/graphics.jsonc")
 
-
 def collect_builder_modules():
     pkgs, svcs, cmds = set(), set(), set()
 
@@ -63,7 +62,7 @@ def collect_builder_modules():
 if __name__ == "__main__":
     pkgs, svcs, cmds = collect_builder_modules()
 
-    # Cria uma cópia do archinstall_config para não modificar o original
+    # Create a copy of archinstall_config to avoid modifying the original
     config = archinstall_config.copy()
     config["packages"] = pkgs
     config["services"] = svcs
