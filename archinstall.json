@@ -6,7 +6,7 @@
   "custom_commands": [],
   "disk_config": null,
   "hostname": "archlinux",
-  "kernels": ["linux", "linux-lts"],
+  "kernels": ["linux-lts"],
   "locale_config": {
     "kb_layout": "us-acentos",
     "sys_enc": "UTF-8",

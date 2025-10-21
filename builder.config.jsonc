@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "base": ["commons", "extras", "bluetooth"], // Options: "commons", "extras", "bluetooth"
+    "environments": ["hyprland"], // Options: "hyprland"
+    "graphics": ["intel", "nvidia"] // Options: "intel", "amd", "nvidia"
+  }
+}

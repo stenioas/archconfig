@@ -1,0 +1,75 @@
+{
+  "bluetooth": {
+    "packages": [
+      "bluez", // Bluetooth protocol stack.
+      "bluez-libs", // Bluetooth libraries.
+      "bluez-utils" // Bluetooth utilities.
+    ],
+    "services": [
+      "bluetooth" // Bluetooth service.
+    ]
+  },
+  "commons": {
+    "packages": [
+      "linux-lts-headers", // LTS kernel header files for building modules.
+      "mesa", // Open-source implementation of the OpenGL API.
+      "lib32-mesa", // 32-bit compatibility library for Mesa (OpenGL).
+      "python", // High-level general-purpose programming language.
+      "go", // Google's open source programming language.
+      "cmake", // Cross-platform build system generator.
+      "sassc", // Sass compiler.
+      "git", // Distributed version control system.
+      "nano", // Simple command-line text editor.
+      "wget", // Utility for non-interactive downloads.
+      "zip", // Package and compress files.
+      "unzip", // Decompress zip files.
+      "fuse2", // Filesystem in Userspace (FUSE) version 2.
+      "fuse3", // Filesystem in Userspace (FUSE) version 3.
+      "btop", // Resource monitor for the terminal.
+      "bash-completion", // Programmable completion for Bash.
+      "openssh", // Secure remote login and command execution.
+      "reflector", // Fetch and filter Arch Linux mirror list.
+      "man-db", // Tools for searching and reading man pages.
+      "man-pages", // Documentation of the Linux kernel and C library.
+      "fastfetch", // Tool for fetching system information.
+      "pipewire", // Low-latency audio and video processing framework.
+      "pipewire-alsa", // ALSA support for PipeWire.
+      "pipewire-jack", // JACK support for PipeWire.
+      "pipewire-pulse", // PulseAudio support for PipeWire.
+      "pipewire-audio", // Audio support for PipeWire.
+      "wireplumber", // Session manager for PipeWire.
+      "lib32-pipewire", // 32-bit compatibility library for PipeWire.
+      "gst-plugin-pipewire", // GStreamer plugin for PipeWire.
+      "pavucontrol", // Volume control for PulseAudio (PipeWire).
+      "gstreamer", // Core GStreamer libraries.
+      "gst-libav", // FFmpeg/Libav plugin for GStreamer.
+      "gst-plugins-base", // GStreamer plugins (base set).
+      "gst-plugins-good", // GStreamer plugins (good quality).
+      "gst-plugins-bad", // GStreamer plugins (bad quality, may be buggy).
+      "gst-plugins-ugly", // GStreamer plugins (ugly set, patented/proprietary).
+      "ffmpeg", // Multimedia framework for encoding and decoding.
+      "noto-fonts", // Google's Noto fonts for universal writing.
+      "noto-fonts-emoji", // Google's Noto Emoji fonts.
+      "noto-fonts-cjk", // Google's Noto fonts for Chinese, Japanese, Korean.
+      "ttf-liberation", // Liberation fonts.
+      "otf-font-awesome", // Iconographic font and CSS toolkit.
+      "ttf-jetbrains-mono", // Font family for developers.
+      "ttf-jetbrains-mono-nerd", // JetBrains Mono with glyphs (Nerd Font).
+      "firefox", // Web browser from Mozilla.
+      "firefox-i18n-pt-br", // Brazilian Portuguese language pack for Firefox.
+      "papirus-icon-theme", // Popular icon theme.
+      "dconf-editor" // Low-level configuration system editor.
+    ],
+    "services": [
+      "fstrim.timer" // Periodic TRIM for SSDs and NVMe drives.
+    ],
+    "custom_commands": [
+      "reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist" // Update mirrorlist with fastest mirrors.
+    ]
+  },
+  "extras": {
+    "packages": [
+      "sof-firmware" // Sound Open Firmware for audio DSPs.
+    ]
+  }
+}
