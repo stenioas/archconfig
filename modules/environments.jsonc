@@ -36,6 +36,10 @@
     "services": [
       "ly" // Enable Ly display manager service
     ],
-    "custom_commands": []
+    "custom_commands": [
+      "su - stenioas -c 'xdg-user-dirs-update'", // Update user directories for stenioas
+      "git clone https://github.com/stenioas/dotfiles.git $HOME/.dotfiles", // Clone dotfiles repository
+      "ln -sf ${HOME}/.dotfiles/hypr/hyprland.conf ${HOME}/.config/hypr/hyprland.conf" // Symlink Hyprland config
+    ]
   }
 }
