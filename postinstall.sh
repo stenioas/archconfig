@@ -122,19 +122,19 @@ _install_packages() {
 
 _install_aur_helpers() {
   _print_title "Install YAY -  AUR helper"
-  [[ -d yay ]] && rm -rf yay
-  git clone https://aur.archlinux.org/yay.git $TMP_DIR/yay
-  cd $TMP_DIR/yay
+  [[ -d "${TMP_DIR}/yay" ]] && rm -rf "${TMP_DIR}/yay"
+  git clone https://aur.archlinux.org/yay.git "${TMP_DIR}/yay"
+  cd "${TMP_DIR}/yay"
   makepkg -csi --noconfirm
   cd
 }
 
 _install_aur_packages() {
   _print_title "Install AUR packages"
-  git clone https://aur.archlinux.org/yay.git $TMP_DIR/yay
-  cd $TMP_DIR/yay
+  git clone https://aur.archlinux.org/yay.git "${TMP_DIR}/yay"
+  cd "${TMP_DIR}/yay"
   makepkg -si --noconfirm
-  yay -S --noconfirm ${AUR_PKG_LIST[@]}
+  yay -S --noconfirm "${AUR_PKG_LIST[@]}"
 }
 
 _execute_commands() {
