@@ -117,7 +117,7 @@ _configure_environment() {
 
 _install_packages() {
   _print_title "Install packages"
-  sudo pacman -S "${PKG_LIST[@]}"
+  sudo pacman -S --noconfirm "${PKG_LIST[@]}"
 }
 
 _install_aur_helpers() {
@@ -131,12 +131,10 @@ _install_aur_helpers() {
 
 _install_aur_packages() {
   _print_title "Install AUR packages"
-  sudo -u "$SUDO_USER" bash -c "
-    git clone https://aur.archlinux.org/yay.git $TMP_DIR/yay
-    cd $TMP_DIR/yay
-    makepkg -si --noconfirm
-    yay -S --noconfirm ${AUR_PKG_LIST[@]}
-  "
+  git clone https://aur.archlinux.org/yay.git $TMP_DIR/yay
+  cd $TMP_DIR/yay
+  makepkg -si --noconfirm
+  yay -S --noconfirm ${AUR_PKG_LIST[@]}
 }
 
 _execute_commands() {
