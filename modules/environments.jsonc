@@ -14,7 +14,8 @@
       "rofi-wayland", // Application launcher for Wayland
       "xdg-desktop-portal-hyprland", // XDG portal backend for Hyprland
       "xdg-desktop-portal-gtk", // XDG portal backend for GTK
-      "xdg-user-dirs-gtk", // GTK utility for user directories
+      "xdg-user-dirs", // Utility for user directories
+      "xdg-utils", // Utilities for XDG
       "qt5-wayland", // Qt 5 Wayland integration platform
       "qt6-wayland", // Qt 6 Wayland integration platform
       "cliphist", // Clipboard history utility for Wayland
@@ -30,16 +31,7 @@
       "nwg-look", // GTK theme editor for Wayland
       "nwg-displays", // Display configuration utility for Wayland
       "yazi", // Modern terminal file manager (Rust)
-      "mpv", // Media player
-      "ly" // Lightweight TUI display manager
-    ],
-    "services": [
-      "ly" // Enable Ly display manager service
-    ],
-    "custom_commands": [
-      "su - stenioas -c 'xdg-user-dirs-update'", // Update user directories for stenioas
-      "git clone https://github.com/stenioas/dotfiles.git $HOME/.dotfiles", // Clone dotfiles repository
-      "ln -sf ${HOME}/.dotfiles/hypr/hyprland.conf ${HOME}/.config/hypr/hyprland.conf" // Symlink Hyprland config
+      "mpv" // Media player
     ]
   }
 }

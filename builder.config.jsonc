@@ -1,7 +1,25 @@
 {
+  "aur": {
+    "packages": [
+      "bruno", // API client
+      "brave-bin", // Brave web browser (binary)
+      "spotify", // Music streaming service
+      "visual-studio-code-bin", // Visual Studio Code (binary)
+      "google-chrome", // Google Chrome web browser
+      "yt-dlp" // YouTube video downloader
+    ]
+  },
+  "custom": {
+    "packages": [
+      "intel-ucode", // Intel CPU microcode updates.
+      "sof-firmware" // Sound Open Firmware for audio DSPs.
+    ],
+    "commands": ["systemctl enable fstrim.timer"] // Periodic TRIM for SSDs and NVMe drives.
+  },
   "modules": {
-    "base": ["commons", "extras", "bluetooth"], // Options: "commons", "extras", "bluetooth"
-    "environments": ["hyprland"], // Options: "hyprland"
-    "graphics": ["intel", "nvidia"] // Options: "intel", "amd", "nvidia"
+    "commons": ["base", "codecs", "fonts", "pipewire", "softwares", "tweaks"],
+    "displays": ["ly"],
+    "environments": ["hyprland"],
+    "graphics": ["intel", "nvidia"]
   }
 }
