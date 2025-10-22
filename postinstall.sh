@@ -131,9 +131,6 @@ _install_aur_helpers() {
 
 _install_aur_packages() {
   _print_title "Install AUR packages"
-  git clone https://aur.archlinux.org/yay.git "${TMP_DIR}/yay"
-  cd "${TMP_DIR}/yay"
-  makepkg -si --noconfirm
   yay -S --noconfirm "${AUR_PKG_LIST[@]}"
 }
 
@@ -156,7 +153,7 @@ _clean() {
   _print_msg "Removing unnecessary packages"
   sudo pacman -Rns $(pacman -Qdtq) || true
   _print_msg "Removing temporary folder"
-  sudo rm -rf "$TMP_DIR"
+  sudo rm -rf "${TMP_DIR}"
 }
 
 # ============================================================================
