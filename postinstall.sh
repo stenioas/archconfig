@@ -52,7 +52,7 @@ _hex_to_background_rgb() {
 
 _welcome() {
   clear
-  echo -e "${COLOR_BLUE_AZURE}${BANNER}${RESET}"
+  echo -e "${COLOR_LIGHT_MAIN}${BANNER}${RESET}"
   echo -e "\n Welcome to ${COLOR_LIGHT_MAIN}${SCRIPT_TITLE} - v${SCRIPT_VERSION}${RESET}"
   echo
 
@@ -67,8 +67,9 @@ EOF
   local alert=$(cat << EOF
   
 ╭─ ATTENTION! ───────────────────────────────────────────────────────────╮
-│ This script will run automatically, without any prompts. Please ensure │
-│ you have read the usage instructions entirely before proceeding.       │
+│ The script will run automatically, but you may be asked for your       │
+│ password. Stay alert. Please ensure you have read the usage            │
+│ instructions entirely before proceeding.                               │
 ╰────────────────────────────────────────────────────────────────────────╯
 EOF
   )
@@ -110,9 +111,6 @@ alpis_log_prefix() {
 }
 
 _configure_environment() {
-  _print_title "Setup environment"
-  _print_msg "Update user folders"
-  xdg-user-dirs-update
   _print_msg "Creating temp folder"
   mkdir -p ${HOME}/Downloads/temp
 }
