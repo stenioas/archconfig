@@ -66,11 +66,11 @@ EOF
 
   local alert=$(cat << EOF
   
-╭─ ATTENTION! ───────────────────────────────────────────────────────────╮
-│ The script will run automatically, but you may be asked for your       │
-│ password. Stay alert. Please ensure you have read the usage            │
-│ instructions entirely before proceeding.                               │
-╰────────────────────────────────────────────────────────────────────────╯
+╭─ ATTENTION! ─────────────────────────────────────────────────────╮
+│ The script will run automatically, but you may be asked for your │
+│ password. Stay alert. Please ensure you have read the usage      │
+│ instructions entirely before proceeding.                         │
+╰──────────────────────────────────────────────────────────────────╯
 EOF
   )
   
