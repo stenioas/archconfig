@@ -1,7 +1,7 @@
 {
   "aur": {
     "packages": [
-      "bruno", // API client
+      "bruno-bin", // API client
       "brave-bin", // Brave web browser (binary)
       "spotify", // Music streaming service
       "visual-studio-code-bin", // Visual Studio Code (binary)
