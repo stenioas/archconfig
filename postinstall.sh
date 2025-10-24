@@ -57,7 +57,7 @@ _welcome() {
   echo
 
   local msg=$(cat << EOF
- This project is a personal tool. I created it to simplify my life
+ This script is a personal tool. I created it to simplify my life
  and  automate my Archlinux post-installation process. It reflects
  my choices,  and is not a tutorial or a guide. Feel free to use it,
  adapt, modify, fork, and play around, but use it at your own risk!
