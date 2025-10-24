@@ -4,9 +4,7 @@
       "audio": "pipewire"
     }
   },
-  "custom_commands": [
-    "reflector -c Brazil --latest 10 --sort rate --save /etc/pacman.d/mirrorlist"
-  ],
+  "custom_commands": [],
   "kernels": ["linux-lts"],
   "locale_config": {
     "kb_layout": "us-acentos",
