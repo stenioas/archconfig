@@ -52,14 +52,16 @@ _hex_to_background_rgb() {
 
 _welcome() {
   clear
-  echo -e "${COLOR_LIGHT_MAIN}${BANNER}${RESET}"
-  echo -e "\n ${ITALIC}Welcome to ${COLOR_LIGHT_MAIN}${SCRIPT_TITLE} - v${SCRIPT_VERSION}${RESET}"
+  echo -e "${BCYAN}${BANNER}${RESET}"
+  echo -e "\n ${ITALIC}Welcome to my ${BCYAN}${SCRIPT_TITLE}${RESET} - v${ITALIC}${SCRIPT_VERSION}${RESET}"
   echo
 
   local msg=$(cat << EOF
- It automates the post-installation of Archlinux, installing my software
- and configuring my entire environment. Feel free to modify and adapt it
- to your needs.
+ This project is a personal tool. I created it to simplify my life
+ and  automate my Archlinux post-installation process. It reflects
+ my choices,  and is not a tutorial or a guide. Feel free to use it,
+ adapt, modify, fork, and play around, but use it at your own risk!
+ I hope it helps you too!
 
  See here for more details: https://github.com/stenioas/archinstall
 EOF
@@ -67,16 +69,16 @@ EOF
 
   local alert=$(cat << EOF
   
-╭─ ATTENTION! ─────────────────────────────────────────────────────╮
-│ The script will run automatically, but you may be asked for your │
-│ password. Stay alert. Please ensure you have read the usage      │
-│ instructions entirely before proceeding.                         │
-╰──────────────────────────────────────────────────────────────────╯
+ ── ATTENTION! ──────────────────────────────────────────────────────
+  ${ITALIC}The script will run automatically, but you may be asked for your
+  password. Stay alert. Please ensure you have read the usage
+  instructions entirely before proceeding.${RESET}${BYELLOW}
+ ────────────────────────────────────────────────────────────────────
 EOF
   )
   
   echo -e "${ITALIC}${msg}${RESET}"
-  echo -e "${COLOR_LIGHT_YELLOW}${alert}${RESET}"
+  echo -e "${BYELLOW}${alert}${RESET}"
 }
 
 _pause() {
@@ -89,7 +91,7 @@ _pause() {
 }
 
 _print_title() {
-  local title="${BOLD}${COLOR_LIGHT_YELLOW}${1^^}${RESET}"
+  local title="${BYELLOW}${1^^}${RESET}"
   echo -e "\n${title}"
 }
 
@@ -107,13 +109,9 @@ _check_connection() {
   fi
 }
 
-almpis_log_prefix() {
-  sed "s/^/${COLOR_LIGHT_MAIN}[almpis]: ${RESET}/"
-}
-
 _configure_environment() {
   _print_msg "Creating temp folder"
-  mkdir -p ${HOME}/Downloads/temp
+  mkdir -p ${TMP_DIR}
 }
 
 _install_packages() {
@@ -141,11 +139,6 @@ _execute_commands() {
     _print_msg "Executing command: ${cmd}"
     eval "${cmd}"
   done
-
-  for aur_cmd in "${AUR_CMD_LIST[@]}"; do
-    _print_msg "Executing AUR command: ${aur_cmd}"
-    eval "${aur_cmd}"
-  done
 }
 
 _clean() {
@@ -163,20 +156,6 @@ _clean() {
 
 IFS=$'\n\t'
 
-# PACKAGE LIST
-if [[ -f ./builder.py ]]; then
-  mapfile -t PKG_LIST < <(python3 ./builder.py --list packages)
-else
-  PKG_LIST=()
-fi
-
-# COMMAND LIST
-if [[ -f ./builder.py ]]; then
-  mapfile -t CMD_LIST < <(python3 ./builder.py --list commands)
-else
-  CMD_LIST=()
-fi
-
 # AUR PACKAGE LIST
 if [[ -f ./builder.py ]]; then
   mapfile -t AUR_PKG_LIST < <(python3 ./builder.py --list aurpkgs)
@@ -184,46 +163,56 @@ else
   AUR_PKG_LIST=()
 fi
 
-# AUR COMMAND LIST
+# PACKAGE LIST
 if [[ -f ./builder.py ]]; then
-  mapfile -t AUR_CMD_LIST < <(python3 ./builder.py --list aurcmds)
+  mapfile -t PKG_LIST < <(python3 ./builder.py --list pkgs)
 else
-  AUR_CMD_LIST=()
+  PKG_LIST=()
+fi
+
+# COMMAND LIST
+if [[ -f ./builder.py ]]; then
+  mapfile -t CMD_LIST < <(python3 ./builder.py --list cmds)
+else
+  CMD_LIST=()
 fi
 
 BANNER=$(cat << 'EOF'
 
- █████╗ ██╗     ███╗   ███╗██████╗ ██╗███████╗
-██╔══██╗██║     ████╗ ████║██╔══██╗██║██╔════╝
-███████║██║     ██╔████╔██║██████╔╝██║███████╗
-██╔══██║██║     ██║╚██╔╝██║██╔═══╝ ██║╚════██║
-██║  ██║███████╗██║ ╚═╝ ██║██║     ██║███████║
-╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝     ╚═╝╚══════╝
+ ┌─┐┌─┐┌─┐┌┬┐  ┬┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┌─┐┌┬┐┬┌─┐┌┐┌  ┌─┐┌─┐┬─┐┬┌─┐┌┬┐
+ ├─┘│ │└─┐ │───││││└─┐ │ ├─┤│  │  ├─┤ │ ││ ││││  └─┐│  ├┬┘│├─┘ │ 
+ ┴  └─┘└─┘ ┴   ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴ ┴ ┴ ┴└─┘┘└┘  └─┘└─┘┴└─┴┴   ┴ 
 EOF
 )
 
-SCRIPT_TITLE="Arch Linux Modular Post-Installation Script"
+SCRIPT_TITLE="Archlinux Post-Installation Script"
 SCRIPT_VERSION="1.0.0-beta"
-TMP_DIR="/tmp/almpis"
+TMP_DIR="$HOME/Downloads/TEMP"
 
 # COLORS
-RESET=$(printf "\e[0m")
-BOLD=$(printf "\e[1m")
-ITALIC=$(printf "\e[3m")
-COLOR_LIGHT_MAIN=$(_hex_to_foreground_rgb "#1793D0")
-COLOR_DARK_MAIN=$(_hex_to_foreground_rgb "#D01792")
-COLOR_LIGHT_RED=$(_hex_to_foreground_rgb "#F15D22")
-COLOR_DARK_RED=$(_hex_to_foreground_rgb "#CC0000")
-COLOR_LIGHT_YELLOW=$(_hex_to_foreground_rgb "#FFCE51")
-COLOR_DARK_YELLOW=$(_hex_to_foreground_rgb "#C4A000")
-COLOR_LIGHT_CYAN=$(_hex_to_foreground_rgb "#34E2E2")
-COLOR_DARK_CYAN=$(_hex_to_foreground_rgb "#06989A")
-COLOR_GREY=$(_hex_to_foreground_rgb "#88807C")
-COLOR_LIGHT_GREY=$(_hex_to_foreground_rgb "#D3D7CF")
-COLOR_DARK_GREY=$(_hex_to_foreground_rgb "#4C4C4C")
-COLOR_BLUE_AZURE=$(_hex_to_foreground_rgb "#0B96FF")
-COLOR_DARK_GREEN=$(_hex_to_foreground_rgb "#C4A000")
-COLOR_TEA=$(_hex_to_foreground_rgb "#73C48F")
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+ITALIC=$(tput sitm)
+
+# Regular Colors
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+PURPLE=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+
+# Bold Colors
+BBLACK=${BOLD}${BLACK}
+BRED=${BOLD}${RED}
+BGREEN=${BOLD}${GREEN}
+BYELLOW=${BOLD}${YELLOW}
+BBLUE=${BOLD}${BLUE}
+BPURPLE=${BOLD}${PURPLE}
+BCYAN=${BOLD}${CYAN}
+BWHITE=${BOLD}${WHITE}
 
 # ============================================================================
 # MAIN
@@ -233,12 +222,12 @@ main() {
   _check_connection
   _welcome
   _pause
-  # _configure_environment
-  # _install_packages
-  # _install_aur_helpers
-  # _install_aur_packages
-  # _execute_commands
-  # _clean
+  _configure_environment
+  _install_packages
+  _install_aur_helpers
+  _install_aur_packages
+  _execute_commands
+  _clean
 }
 
 main

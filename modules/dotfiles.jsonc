@@ -1,0 +1,4 @@
+{
+  "packages": [],
+  "commands": ["bash $HOME/.config/archinstall/scripts/install-dotfiles.sh"]
+}

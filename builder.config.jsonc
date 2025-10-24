@@ -1,17 +1,11 @@
 {
-  "aur": ["softwares"],
-  "pacman": [
-    "commons",
-    "codecs",
+  "modules": [
+    "common",
     "custom",
-    "development",
-    "fonts",
-    "desktop_hyprland",
-    "display_ly",
-    "audio_pipewire",
-    "softwares",
-    "tweaks",
-    "video_intel",
-    "video_nvidia"
+    "de_hyprland",
+    "dm_ly",
+    "dotfiles",
+    "gfx_intel",
+    "gfx_nvidia"
   ]
 }

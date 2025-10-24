@@ -2,6 +2,7 @@
 
 
 import json
+import os
 import sys
 
 
@@ -19,35 +20,25 @@ def load_jsonc(path):
 # Load builder config (JSONC)
 builder_config = load_jsonc("./builder.config.jsonc")
 
-# Load modules data
-aur_modules = load_jsonc("./modules/aur_modules.jsonc")
-pacman_modules = load_jsonc("./modules/pacman_modules.jsonc")
-
 
 def collect_builder_modules():
-    pkgs, cmds, aur_pkgs, aur_cmds = set(), set(), set(), set()
+    aur_pkgs, pkgs, cmds = set(), set(), set()
 
-    # AUR modules
-    for module in builder_config.get("aur", []):
-        if module not in aur_modules:
-            raise KeyError(f"Module '{module}' not found in AUR modules")
-        module_ref = aur_modules[module]
-        aur_pkgs.update(module_ref.get("packages", []))
-        aur_cmds.update(module_ref.get("commands", []))
+    # Modules
+    for module in builder_config.get("modules", []):
+        module_path = f"./modules/{module}.jsonc"
+        if not os.path.exists(module_path):
+            raise KeyError(f"Error: Module file '{module_path}' not found.")
+        module_src = load_jsonc(module_path)
+        aur_pkgs.update(module_src.get("aur_packages", []))
+        pkgs.update(module_src.get("packages", []))
+        cmds.update(module_src.get("commands", []))
 
-    # Pacman modules
-    for module in builder_config.get("pacman", []):
-        if module not in pacman_modules:
-            raise KeyError(f"Module '{module}' not found in pacman modules")
-        module_ref = pacman_modules[module]
-        pkgs.update(module_ref.get("packages", []))
-        cmds.update(module_ref.get("commands", []))
-
-    return sorted(pkgs), sorted(cmds), sorted(aur_pkgs), sorted(aur_cmds)
+    return  sorted(aur_pkgs), sorted(pkgs), sorted(cmds)
 
 
 def main():
-    pkgs, cmds, aur_pkgs, aur_cmds = collect_builder_modules()
+    aur_pkgs, pkgs, cmds  = collect_builder_modules()
 
     def get_list_by_type(list_type):
         if list_type == "pkgs":
@@ -56,10 +47,8 @@ def main():
             return cmds
         elif list_type == "aurpkgs":
             return aur_pkgs
-        elif list_type == "aurcmds":
-            return aur_cmds
         else:
-            print("Invalid list type. Use one of: pkgs, cmds, aurpkgs, aurcmds.")
+            print("Invalid list type. Use one of: pkgs, cmds, aurpkgs.")
             exit(1)
 
     if len(sys.argv) == 3 and sys.argv[1] in ("--list", "-l"):
@@ -67,9 +56,9 @@ def main():
         items = get_list_by_type(list_type)
         print("\n".join(items))
     elif len(sys.argv) == 2 and sys.argv[1] in ("--help", "-h"):
-        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds> or -l <pkgs|cmds|aurpkgs|aurcmds>")
+        print("Usage: builder.py --list <pkgs|cmds|aurpkgs> or -l <pkgs|cmds|aurpkgs>")
     else:
-        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds> or -l <pkgs|cmds|aurpkgs|aurcmds>")
+        print("Usage: builder.py --list <pkgs|cmds|aurpkgs> or -l <pkgs|cmds|aurpkgs>")
 
 if __name__ == "__main__":
     main()

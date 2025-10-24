@@ -1,0 +1,10 @@
+{
+  "packages": [
+    "dkms", // Dynamic Kernel Module Support framework
+    "nvidia-dkms", // NVIDIA kernel module built with DKMS
+    "nvidia-settings", // NVIDIA driver configuration tool
+    "nvidia-utils", // Utilities for NVIDIA drivers
+    "lib32-nvidia-utils", // 32-bit utilities for NVIDIA drivers
+    "libva-nvidia-driver" // VA-API driver for NVIDIA GPUs
+  ]
+}
