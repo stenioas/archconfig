@@ -89,7 +89,7 @@ _configure_environment() {
   sudo sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
 
   _print_msg "Updating mirrorlist"
-  reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
+  sudo reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
 }
 
 _install_packages() {
