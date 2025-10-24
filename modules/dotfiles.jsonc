@@ -1,7 +1,6 @@
 {
   "commands": [
-    "git clone https://github.com/stenioas/dotfiles.git $HOME/.dotfiles",
-    "bash $HOME/.dotfiles/install_dotfiles.sh"
+    "git clone https://github.com/stenioas/dotfiles.git $HOME/.dotfiles && bash $HOME/.dotfiles/install_dotfiles.sh" // Clone and install personal dotfiles
   ],
   "packages": []
 }

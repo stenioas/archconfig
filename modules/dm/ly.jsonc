@@ -1,6 +1,6 @@
 {
   "commands": [
-    "systemctl enable ly" // Enable Ly display manager service
+    "sudo systemctl enable ly" // Enable Ly display manager service
   ],
   "packages": [
     "ly" // Lightweight TUI display manager
