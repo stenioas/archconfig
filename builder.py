@@ -46,15 +46,6 @@ def collect_builder_modules():
     return sorted(pkgs), sorted(cmds), sorted(aur_pkgs), sorted(aur_cmds)
 
 
-
-def output_list_in_file(filename, list):
-    """Write the package list to a file, one package per line, without quotes."""
-    with open(filename, "w", encoding="utf-8") as f:
-        for item in list:
-            f.write(f"{item}\n")
-    return filename
-
-
 def main():
     pkgs, cmds, aur_pkgs, aur_cmds = collect_builder_modules()
 
@@ -76,9 +67,9 @@ def main():
         items = get_list_by_type(list_type)
         print("\n".join(items))
     elif len(sys.argv) == 2 and sys.argv[1] in ("--help", "-h"):
-        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds>")
+        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds> or -l <pkgs|cmds|aurpkgs|aurcmds>")
     else:
-        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds>")
+        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds> or -l <pkgs|cmds|aurpkgs|aurcmds>")
 
 if __name__ == "__main__":
     main()

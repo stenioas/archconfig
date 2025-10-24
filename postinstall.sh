@@ -53,12 +53,13 @@ _hex_to_background_rgb() {
 _welcome() {
   clear
   echo -e "${COLOR_LIGHT_MAIN}${BANNER}${RESET}"
-  echo -e "\n Welcome to ${COLOR_LIGHT_MAIN}${SCRIPT_TITLE} - v${SCRIPT_VERSION}${RESET}"
+  echo -e "\n ${ITALIC}Welcome to ${COLOR_LIGHT_MAIN}${SCRIPT_TITLE} - v${SCRIPT_VERSION}${RESET}"
   echo
 
   local msg=$(cat << EOF
- Automates post-installation, setting up my software and configuring
- my entire environment. Feel free to modify and adapt it to your needs.
+ It automates the post-installation of Archlinux, installing my software
+ and configuring my entire environment. Feel free to modify and adapt it
+ to your needs.
 
  See here for more details: https://github.com/stenioas/archinstall
 EOF
@@ -106,8 +107,8 @@ _check_connection() {
   fi
 }
 
-alpis_log_prefix() {
-  sed "s/^/${COLOR_LIGHT_MAIN}[alpis]: ${RESET}/"
+almpis_log_prefix() {
+  sed "s/^/${COLOR_LIGHT_MAIN}[almpis]: ${RESET}/"
 }
 
 _configure_environment() {
@@ -164,46 +165,46 @@ IFS=$'\n\t'
 
 # PACKAGE LIST
 if [[ -f ./builder.py ]]; then
-  mapfile -t PKG_LIST < <(python3 ./builder.py --packages)
+  mapfile -t PKG_LIST < <(python3 ./builder.py --list packages)
 else
   PKG_LIST=()
 fi
 
 # COMMAND LIST
 if [[ -f ./builder.py ]]; then
-  mapfile -t CMD_LIST < <(python3 ./builder.py --commands)
+  mapfile -t CMD_LIST < <(python3 ./builder.py --list commands)
 else
   CMD_LIST=()
 fi
 
 # AUR PACKAGE LIST
 if [[ -f ./builder.py ]]; then
-  mapfile -t AUR_PKG_LIST < <(python3 ./builder.py --aurpkgs)
+  mapfile -t AUR_PKG_LIST < <(python3 ./builder.py --list aurpkgs)
 else
   AUR_PKG_LIST=()
 fi
 
 # AUR COMMAND LIST
 if [[ -f ./builder.py ]]; then
-  mapfile -t AUR_CMD_LIST < <(python3 ./builder.py --aurcmds)
+  mapfile -t AUR_CMD_LIST < <(python3 ./builder.py --list aurcmds)
 else
   AUR_CMD_LIST=()
 fi
 
 BANNER=$(cat << 'EOF'
 
- █████╗ ██╗     ██████╗ ██╗███████╗
-██╔══██╗██║     ██╔══██╗██║██╔════╝
-███████║██║     ██████╔╝██║███████╗
-██╔══██║██║     ██╔═══╝ ██║╚════██║
-██║  ██║███████╗██║     ██║███████║
-╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝
+ █████╗ ██╗     ███╗   ███╗██████╗ ██╗███████╗
+██╔══██╗██║     ████╗ ████║██╔══██╗██║██╔════╝
+███████║██║     ██╔████╔██║██████╔╝██║███████╗
+██╔══██║██║     ██║╚██╔╝██║██╔═══╝ ██║╚════██║
+██║  ██║███████╗██║ ╚═╝ ██║██║     ██║███████║
+╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝     ╚═╝╚══════╝
 EOF
 )
 
-SCRIPT_TITLE="Arch Linux Post-Installation Script"
+SCRIPT_TITLE="Arch Linux Modular Post-Installation Script"
 SCRIPT_VERSION="1.0.0-beta"
-TMP_DIR="/tmp/alpis"
+TMP_DIR="/tmp/almpis"
 
 # COLORS
 RESET=$(printf "\e[0m")
@@ -232,12 +233,12 @@ main() {
   _check_connection
   _welcome
   _pause
-  _configure_environment
-  _install_packages
-  _install_aur_helpers
-  _install_aur_packages
-  _execute_commands
-  _clean
+  # _configure_environment
+  # _install_packages
+  # _install_aur_helpers
+  # _install_aur_packages
+  # _execute_commands
+  # _clean
 }
 
 main
