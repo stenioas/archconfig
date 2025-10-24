@@ -2,10 +2,10 @@
   "modules": [
     "common",
     "custom",
-    "de_hyprland",
-    "dm_ly",
     "dotfiles",
-    "gfx_intel",
-    "gfx_nvidia"
+    "de/hyprland",
+    "dm/ly",
+    "gfx/intel",
+    "gfx/nvidia"
   ]
 }

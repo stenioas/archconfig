@@ -1,4 +1,7 @@
 {
+  "commands": [
+    "xdg-user-dirs-update" // Update user directories
+  ],
   "packages": [
     "hyprland", // Wayland compositor for dynamic tiling
     "hyprlock", // Screen locker for Hyprland
@@ -31,8 +34,5 @@
     "nwg-displays", // Display configuration utility for Wayland
     "yazi", // Modern terminal file manager (Rust)
     "mpv" // Media player
-  ],
-  "commands": [
-    "xdg-user-dirs-update" // Update user directories
   ]
 }
