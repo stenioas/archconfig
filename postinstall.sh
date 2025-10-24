@@ -84,9 +84,9 @@ _configure_environment() {
   mkdir -p ${TMP_DIR}
 
   _print_msg "Configuring pacman"
-  sed -i '4,$s/^#Color/Color/' /etc/pacman.conf
-  sed -i '4,$s/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
-  sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
+  sudo sed -i '4,$s/^#Color/Color/' /etc/pacman.conf
+  sudo sed -i '4,$s/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
+  sudo sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
 
   _print_msg "Updating mirrorlist"
   reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
