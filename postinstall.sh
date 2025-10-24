@@ -20,36 +20,6 @@ sudo -v                # Garante que a senha do sudo esteja pronta
 # FUNCTIONS
 # ----------------------------------------------------------------------------
 
-_hex_to_foreground_rgb() {
-    local hex_code="$1"
-    # Remove '#'
-    hex_code="${hex_code##\#}" 
-    
-    # Extrai R, G, B em decimal
-    local r=$(printf "%d" 0x"${hex_code:0:2}")
-    local g=$(printf "%d" 0x"${hex_code:2:2}")
-    local b=$(printf "%d" 0x"${hex_code:4:2}")
-
-    # Usa printf para garantir que a sequência de escape seja correta.
-    # %s é para as variáveis (r, g, b), e o '\e' é a sequência de escape.
-    printf '\e[38;2;%s;%s;%sm' "$r" "$g" "$b"
-}
-
-_hex_to_background_rgb() {
-    local hex_code="$1"
-    # Remove '#'
-    hex_code="${hex_code##\#}" 
-    
-    # Extrai R, G, B em decimal
-    local r=$(printf "%d" 0x"${hex_code:0:2}")
-    local g=$(printf "%d" 0x"${hex_code:2:2}")
-    local b=$(printf "%d" 0x"${hex_code:4:2}")
-
-    # Usa printf para garantir que a sequência de escape seja correta.
-    # %s é para as variáveis (r, g, b), e o '\e' é a sequência de escape.
-    printf '\e[48;2;%s;%s;%sm' "$r" "$g" "$b"
-}
-
 _welcome() {
   clear
   echo -e "${BCYAN}${BANNER}${RESET}"
@@ -112,6 +82,14 @@ _check_connection() {
 _configure_environment() {
   _print_msg "Creating temp folder"
   mkdir -p ${TMP_DIR}
+
+  _print_msg "Configuring pacman"
+  sed -i '4,$s/^#Color/Color/' /etc/pacman.conf
+  sed -i '4,$s/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
+  sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
+
+  _print_msg "Updating mirrorlist"
+  reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
 }
 
 _install_packages() {
