@@ -2,6 +2,7 @@
 
 
 import json
+import sys
 
 
 def load_jsonc(path):
@@ -19,56 +20,26 @@ def load_jsonc(path):
 builder_config = load_jsonc("./builder.config.jsonc")
 
 # Load modules data
-commons_module = load_jsonc("./modules/commons.jsonc")
-displays_modules = load_jsonc("./modules/displays.jsonc")
-environments_modules = load_jsonc("./modules/environments.jsonc")
-graphics_modules = load_jsonc("./modules/graphics.jsonc")
+aur_modules = load_jsonc("./modules/aur_modules.jsonc")
+pacman_modules = load_jsonc("./modules/pacman_modules.jsonc")
 
 
 def collect_builder_modules():
     pkgs, cmds, aur_pkgs, aur_cmds = set(), set(), set(), set()
 
     # AUR modules
-    if "aur" not in builder_config:
-        raise KeyError(f"Module 'aur' not found in builder config")
-    aur_pkgs.update(builder_config.get("aur", {}).get("packages", []))
-    aur_cmds.update(builder_config.get("aur", {}).get("commands", []))
+    for module in builder_config.get("aur", []):
+        if module not in aur_modules:
+            raise KeyError(f"Module '{module}' not found in AUR modules")
+        module_ref = aur_modules[module]
+        aur_pkgs.update(module_ref.get("packages", []))
+        aur_cmds.update(module_ref.get("commands", []))
 
-    # Custom modules
-    if "custom" not in builder_config:
-        raise KeyError(f"Module 'custom' not found in builder config")
-    pkgs.update(builder_config.get("custom", {}).get("packages", []))
-    cmds.update(builder_config.get("custom", {}).get("commands", []))
-
-    # Commons modules
-    for module in builder_config.get("modules", {}).get("commons", []):
-        if module not in commons_module:
-            raise KeyError(f"Module '{module}' not found in commons")
-        module_ref = commons_module[module]
-        pkgs.update(module_ref.get("packages", []))
-        cmds.update(module_ref.get("commands", []))
-
-    # Displays modules
-    for module in builder_config.get("modules", {}).get("displays", []):
-        if module not in displays_modules:
-            raise KeyError(f"Module '{module}' not found in displays")
-        module_ref = displays_modules[module]
-        pkgs.update(module_ref.get("packages", []))
-        cmds.update(module_ref.get("commands", []))
-
-    # Environments modules
-    for module in builder_config.get("modules", {}).get("environments", []):
-        if module not in environments_modules:
-            raise KeyError(f"Module '{module}' not found in environments")
-        module_ref = environments_modules[module]
-        pkgs.update(module_ref.get("packages", []))
-        cmds.update(module_ref.get("commands", []))
-
-    # Graphics modules
-    for module in builder_config.get("modules", {}).get("graphics", []):
-        if module not in graphics_modules:
-            raise KeyError(f"Module '{module}' not found in graphics")
-        module_ref = graphics_modules[module]
+    # Pacman modules
+    for module in builder_config.get("pacman", []):
+        if module not in pacman_modules:
+            raise KeyError(f"Module '{module}' not found in pacman modules")
+        module_ref = pacman_modules[module]
         pkgs.update(module_ref.get("packages", []))
         cmds.update(module_ref.get("commands", []))
 
@@ -85,37 +56,29 @@ def output_list_in_file(filename, list):
 
 
 def main():
-    import sys
     pkgs, cmds, aur_pkgs, aur_cmds = collect_builder_modules()
 
-    if len(sys.argv) > 1:
-        arg = sys.argv[1]
-        file_mode = len(sys.argv) > 2 and sys.argv[2] in ("--file", "-f")
-
-        if arg in ("--commands", "-c"):
-            if file_mode:
-                output_list_in_file("output_cmds.list", cmds)
-            else:
-                print("\n".join(cmds))
-        elif arg in ("--packages", "-p"):
-            if file_mode:
-                output_list_in_file("output_pkgs.list", pkgs)
-            else:
-                print("\n".join(pkgs))
-        elif arg in ("--aurpkgs", "-ap"):
-            if file_mode:
-                output_list_in_file("output_aur_pkgs.list", aur_pkgs)
-            else:
-                print("\n".join(aur_pkgs))
-        elif arg in ("--aurcmds", "-ac"):
-            if file_mode:
-                output_list_in_file("output_aur_cmds.list", aur_cmds)
-            else:
-                print("\n".join(aur_cmds))
+    def get_list_by_type(list_type):
+        if list_type == "pkgs":
+            return pkgs
+        elif list_type == "cmds":
+            return cmds
+        elif list_type == "aurpkgs":
+            return aur_pkgs
+        elif list_type == "aurcmds":
+            return aur_cmds
         else:
-            print("Usage: builder.py [--commands|-c|--packages|-p|--aurpkgs|-ap|--aurcmds|-ac] [--file|-f]")
+            print("Invalid list type. Use one of: pkgs, cmds, aurpkgs, aurcmds.")
+            exit(1)
+
+    if len(sys.argv) == 3 and sys.argv[1] in ("--list", "-l"):
+        list_type = sys.argv[2]
+        items = get_list_by_type(list_type)
+        print("\n".join(items))
+    elif len(sys.argv) == 2 and sys.argv[1] in ("--help", "-h"):
+        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds>")
     else:
-        print("Usage: builder.py [--commands|-c|--packages|-p|--aurpkgs|-ap|--aurcmds|-ac] [--file|-f]")
+        print("Usage: builder.py --list <pkgs|cmds|aurpkgs|aurcmds>")
 
 if __name__ == "__main__":
     main()
