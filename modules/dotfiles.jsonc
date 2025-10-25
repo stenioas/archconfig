@@ -1,7 +1,7 @@
 {
   "commands": [
-    "[[ -d ${HOME}/.dotfiles ]] && _print_msg 'Dotfiles already installed'",
-    "[[ ! -d ${HOME}/.dotfiles ]] && git clone https://github.com/stenioas/dotfiles.git ${HOME}/.dotfiles && bash ${HOME}/.dotfiles/install_dotfiles.sh && _print_msg 'Dotfiles installed successfully'"
+    "[[ -d ${HOME}/.dotfiles ]] && echo 'Dotfiles already installed'",
+    "[[ ! -d ${HOME}/.dotfiles ]] && git clone https://github.com/stenioas/dotfiles.git ${HOME}/.dotfiles && bash ${HOME}/.dotfiles/install_dotfiles.sh && echo 'Dotfiles installed successfully'"
   ],
   "packages": []
 }
