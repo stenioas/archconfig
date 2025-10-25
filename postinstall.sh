@@ -92,18 +92,22 @@ _configure_environment() {
   sudo reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
 }
 
-_install_packages() {
-  _print_title "Install packages"
-  yay -S --noconfirm --needed "${PKG_LIST[@]}"
-}
-
 _install_aur_helper() {
   _print_title "Install YAY -  AUR helper"
+  if [[ pacman -Qi yay &> /dev/null ]]; then
+    _print_msg "YAY is already installed"
+    return
+  fi
   [[ -d "${TMP_DIR}/yay" ]] && rm -rf "${TMP_DIR}/yay"
   git clone https://aur.archlinux.org/yay.git "${TMP_DIR}/yay"
   cd "${TMP_DIR}/yay"
   makepkg -csi --noconfirm
   cd ${HOME}
+}
+
+_install_packages() {
+  _print_title "Install packages"
+  yay -S --noconfirm --needed "${PKG_LIST[@]}"
 }
 
 _execute_commands() {
