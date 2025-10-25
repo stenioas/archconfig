@@ -47,14 +47,20 @@ You can customize this file to match your hardware, preferences, and installatio
 }
 ```
 
-See the file for all available options and adjust as needed for your installation.
+See the [example usage](https://archinstall.archlinux.page/installing/guided.html#example-usage) for all available options and adjust as needed for your installation.
+
+### Usage
+
+```bash
+archinstall --config archinstall/archinstall/base_configuration.json
+```
 
 ## Post Install Script
 
 ### Features
 
 - Modular configuration: each file in `modules/` is a module with its own package and command lists
-- Supports `packages`, `aur_packages`, and `commands` in each module
+- Supports `packages` and `commands` in each module
 - Flexible selection of modules for post-install via `builder.config.jsonc`
 - Easily extensible for desktops (DE), display managers (DM), graphics (GFX), dotfiles, and custom hardware
 - Automated pacman and AUR installation
@@ -86,7 +92,7 @@ archinstall/
 ├── README.md
 ```
 
-- **modules/**: Each file (or file in a subfolder) is a module. You can define `packages`, `aur_packages`, and `commands` arrays in each.
+- **modules/**: Each file (or file in a subfolder) is a module. You can define `packages` and `commands` arrays in each.
 - **builder.config.jsonc**: Only one property: `modules`, an array listing the modules to include in your post-install. Use subfolder/module notation, e.g. `de/hyprland`.
 
 ### Usage
@@ -114,8 +120,7 @@ Each module file (e.g. `modules/common.jsonc`, `modules/de/hyprland.jsonc`) can 
 
 ```jsonc
 {
-  "aur_packages": ["yay", "sof-firmware"],
-  "packages": ["nano", "git"],
+  "packages": ["nano", "git", "google-chrome", "spotify"],
   "commands": ["systemctl enable fstrim.timer", "xdg-user-dirs-update"]
 }
 ```
@@ -124,14 +129,12 @@ Each module file (e.g. `modules/common.jsonc`, `modules/de/hyprland.jsonc`) can 
 
 Use `builder.py` to output the merged lists:
 
-- `--list aurpkgs` : AUR packages
-- `--list pkgs` : Pacman packages
+- `--list pkgs` : Pacman and AUR packages
 - `--list cmds` : Post-install commands
 
 **Examples:**
 
 ```bash
-python3 builder.py --list aurpkgs
 python3 builder.py --list pkgs
 python3 builder.py --list cmds
 ```
@@ -145,7 +148,9 @@ bash postinstall.sh
 This will:
 
 - Check your connection
-- Configure environment folders
+- Configure temporary folders
+- Configure pacman.conf
+- Install AUR Helper (YAY)
 - Install all pacman and AUR packages
 - Execute all post-install commands
 - Clean up

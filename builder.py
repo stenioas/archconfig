@@ -35,7 +35,7 @@ builder_config = load_jsonc("./builder.config.jsonc")
 
 
 def collect_builder_modules():
-    aur_pkgs, pkgs, cmds = set(), set(), set()
+    pkgs, cmds = set(), set()
 
     # Modules
     for module in builder_config.get("modules", []):
@@ -43,25 +43,22 @@ def collect_builder_modules():
         if not os.path.exists(module_path):
             raise KeyError(f"Error: Module file '{module_path}' not found.")
         module_src = load_jsonc(module_path)
-        aur_pkgs.update(module_src.get("aur_packages", []))
         pkgs.update(module_src.get("packages", []))
         cmds.update(module_src.get("commands", []))
 
-    return  sorted(aur_pkgs), sorted(pkgs), cmds
+    return  sorted(pkgs), cmds
 
 
 def main():
-    aur_pkgs, pkgs, cmds  = collect_builder_modules()
+    pkgs, cmds  = collect_builder_modules()
 
     def get_list_by_type(list_type):
-        if list_type == "pkgs":
+        if list_type == "packages":
             return pkgs
-        elif list_type == "cmds":
+        elif list_type == "commands":
             return cmds
-        elif list_type == "aurpkgs":
-            return aur_pkgs
         else:
-            print("Invalid list type. Use one of: pkgs, cmds, aurpkgs.")
+            print("Invalid list type. Use one of: packages, commands.")
             exit(1)
 
     if len(sys.argv) == 3 and sys.argv[1] in ("--list", "-l"):
@@ -69,9 +66,9 @@ def main():
         items = get_list_by_type(list_type)
         print("\n".join(items))
     elif len(sys.argv) == 2 and sys.argv[1] in ("--help", "-h"):
-        print("Usage: builder.py --list <pkgs|cmds|aurpkgs> or -l <pkgs|cmds|aurpkgs>")
+        print("Usage: builder.py --list <packages|commands> or -l <packages|commands>")
     else:
-        print("Usage: builder.py --list <pkgs|cmds|aurpkgs> or -l <pkgs|cmds|aurpkgs>")
+        print("Usage: builder.py --list <packages|commands> or -l <packages|commands>")
 
 if __name__ == "__main__":
     main()

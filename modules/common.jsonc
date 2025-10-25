@@ -1,12 +1,5 @@
 {
   // The packages in this module are common to all setups.
-  "aur_packages": [
-    "bruno-bin", // API client
-    "brave-bin", // Brave web browser (binary)
-    "spotify", // Music streaming service
-    "visual-studio-code-bin", // Visual Studio Code (binary)
-    "google-chrome" // Google Chrome web browser
-  ],
   "commands": [
     "sudo systemctl enable docker", // Containerization platform.
     "sudo usermod -aG docker $USER" // Add user to docker group.
@@ -80,6 +73,13 @@
     "vlc", // Versatile media player.
 
     // TWEAKS
-    "papirus-icon-theme" // Popular icon theme.
+    "papirus-icon-theme", // Popular icon theme.
+
+    // AUR
+    "bruno-bin", // API client
+    "brave-bin", // Brave web browser (binary)
+    "spotify", // Music streaming service
+    "visual-studio-code-bin", // Visual Studio Code (binary)
+    "google-chrome" // Google Chrome web browser
   ]
 }

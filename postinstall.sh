@@ -94,34 +94,29 @@ _configure_environment() {
 
 _install_packages() {
   _print_title "Install packages"
-  sudo pacman -S --noconfirm "${PKG_LIST[@]}"
+  yay -S --noconfirm --needed "${PKG_LIST[@]}"
 }
 
-_install_aur_helpers() {
+_install_aur_helper() {
   _print_title "Install YAY -  AUR helper"
   [[ -d "${TMP_DIR}/yay" ]] && rm -rf "${TMP_DIR}/yay"
   git clone https://aur.archlinux.org/yay.git "${TMP_DIR}/yay"
   cd "${TMP_DIR}/yay"
   makepkg -csi --noconfirm
-  cd
-}
-
-_install_aur_packages() {
-  _print_title "Install AUR packages"
-  yay -S --noconfirm "${AUR_PKG_LIST[@]}"
+  cd ${HOME}
 }
 
 _execute_commands() {
   _print_title "Execute additional commands"
   for cmd in "${CMD_LIST[@]}"; do
     _print_msg "Executing command: ${cmd}"
-    eval "${cmd}"
+    eval "${cmd}" || { echo "${BRED}Error:${RESET} Command failed: ${cmd}"; exit 1; }
   done
 }
 
 _clean() {
   _print_msg "Cleaning package cache"
-  sudo pacman -Scc
+  sudo pacman -Scc --noconfirm
   _print_msg "Removing unnecessary packages"
   sudo pacman -Rns $(pacman -Qdtq) || true
   _print_msg "Removing temporary folder"
@@ -132,25 +127,20 @@ _clean() {
 # .ENV
 # ----------------------------------------------------------------------------
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 IFS=$'\n\t'
 
-# AUR PACKAGE LIST
-if [[ -f ./builder.py ]]; then
-  mapfile -t AUR_PKG_LIST < <(python3 ./builder.py --list aurpkgs)
-else
-  AUR_PKG_LIST=()
-fi
-
 # PACKAGE LIST
-if [[ -f ./builder.py ]]; then
-  mapfile -t PKG_LIST < <(python3 ./builder.py --list pkgs)
+if [[ -f ${SCRIPT_DIR}/builder.py ]]; then
+  mapfile -t PKG_LIST < <(python3 ${SCRIPT_DIR}/builder.py --list packages)
 else
   PKG_LIST=()
 fi
 
 # COMMAND LIST
-if [[ -f ./builder.py ]]; then
-  mapfile -t CMD_LIST < <(python3 ./builder.py --list cmds)
+if [[ -f ${SCRIPT_DIR}/builder.py ]]; then
+  mapfile -t CMD_LIST < <(python3 ${SCRIPT_DIR}/builder.py --list commands)
 else
   CMD_LIST=()
 fi
@@ -201,9 +191,8 @@ main() {
   _welcome
   _pause
   _configure_environment
+  _install_aur_helper
   _install_packages
-  _install_aur_helpers
-  _install_aur_packages
   _execute_commands
   _clean
 }
