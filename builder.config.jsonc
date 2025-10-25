@@ -2,7 +2,6 @@
   "modules": [
     "common",
     "custom",
-    "dotfiles",
     "de/hyprland",
     "dm/ly",
     "gfx/intel",
