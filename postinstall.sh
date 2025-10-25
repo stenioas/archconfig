@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# Script   : postinstall.sh
-# Descrição: Script de pós-instalação do Pop!_OS 22.04
-# Versão   : 1.0.0-beta
-# Autor    : Stenio Silveira <stenioas@gmail.com>
-# Data     : 21/10/2025
-# Licença  : GNU/GPL v3.0
+# Name        : postinstall.sh
+# Description : Archlinux Post-Installation Script
+# Version     : 1.0.0-beta
+# Author      : Stenio Silveira <stenioas@gmail.com>
+# Date        : 21/10/2025
+# License     : GNU/GPL v3.0
+
 # ============================================================================
-# COMANDOS DE INICIALIZAÇÃO E LIMPEZA (TRAP/SUDO)
+# INITIALIZATION AND CLEANUP COMMANDS (TRAP/SUDO)
 # ============================================================================
 
 set -euo pipefail
 
-trap "tput cnorm" EXIT # Garante que o cursor volte ao normal
-trap "exit 1" INT      # Garante que o script pare com Ctrl+C
-sudo -v                # Garante que a senha do sudo esteja pronta
+trap "tput cnorm" EXIT # Ensures the cursor returns to normal
+trap "exit 1" INT      # Ensures the script stops with Ctrl+C
+sudo -v                # Ensures the sudo password is ready
 
 # ============================================================================
 # FUNCTIONS

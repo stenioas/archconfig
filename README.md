@@ -4,7 +4,7 @@
 
 ## Base Archinstall Configuration
 
-This project also includes a base configuration for the official [archinstall](https://archinstall.archlinux.page/index.html) installer. The file `archinstall/base_configuration.json` defines essential system settings, such as:
+This project also includes a base configuration for the official [archinstall](https://archinstall.archlinux.page/index.html) installer. The file `archinstall.json` defines essential system settings, such as:
 
 - Kernel selection
 - Locale and timezone
@@ -16,7 +16,7 @@ This project also includes a base configuration for the official [archinstall](h
 
 You can customize this file to match your hardware, preferences, and installation requirements. It is used as input for the Archinstall process, ensuring a reproducible and automated base system setup before running post-install scripts and modular configuration.
 
-**Example: `archinstall/base_configuration.json`**
+**Example: `archinstall/archinstall.config.json`**
 
 ```jsonc
 {
@@ -52,7 +52,7 @@ See the [example usage](https://archinstall.archlinux.page/installing/guided.htm
 ### Usage
 
 ```bash
-archinstall --config archinstall/archinstall/base_configuration.json
+archinstall --config archinstall.config.json
 ```
 
 ## Post Install Script
@@ -85,6 +85,7 @@ archinstall/
 │   │   ├── intel.jsonc     # Example: Intel graphics
 │   │   └── nvidia.jsonc    # Example: NVIDIA graphics
 │   └── ...                 # Add more as needed
+├── archinstall.config.json # Archinstall configuration
 ├── builder.config.jsonc    # Selects which modules to use
 ├── builder.py              # Merges modules and outputs lists
 ├── postinstall.sh          # Runs the full post-install automation
@@ -129,14 +130,14 @@ Each module file (e.g. `modules/common.jsonc`, `modules/de/hyprland.jsonc`) can 
 
 Use `builder.py` to output the merged lists:
 
-- `--list pkgs` : Pacman and AUR packages
-- `--list cmds` : Post-install commands
+- `--list packages` : Pacman and AUR packages
+- `--list commands` : Post-install commands
 
 **Examples:**
 
 ```bash
-python3 builder.py --list pkgs
-python3 builder.py --list cmds
+python3 builder.py --list packages
+python3 builder.py --list commands
 ```
 
 #### 4. Run the post-install script
