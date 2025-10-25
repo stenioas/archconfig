@@ -72,7 +72,6 @@ archinstall/
 ├── modules/
 │   ├── common.jsonc        # Essential packages/commands for any system
 │   ├── custom.jsonc        # Extra packages/commands (e.g. hardware-specific)
-│   ├── dotfiles.jsonc      # Dotfiles setup commands
 │   ├── de/                 # Desktop environments
 │   │   ├── hyprland.jsonc  # Example: Hyprland DE
 │   │   └── kde.jsonc       # Example: KDE DE
@@ -86,6 +85,7 @@ archinstall/
 ├── archinstall.config.json # Archinstall configuration
 ├── builder.config.jsonc    # Selects which modules to use
 ├── builder.py              # Merges modules and outputs lists
+├── extra_commands.sh       # Extra commands script
 ├── postinstall.sh          # Runs the full post-install automation
 ├── LICENSE
 ├── README.md
@@ -101,10 +101,10 @@ archinstall/
 - Add your packages, AUR packages, and commands to each module as needed.
 - Reference only the modules you want in `builder.config.jsonc` using the correct path (e.g. `de/hyprland`).
 
-### Advanced: Custom Commands & Dotfiles
+### Advanced: Module Commands and Extra Commands
 
 - Add any shell commands to the `commands` array in your module (e.g. enable services, update user dirs, setup dotfiles).
-- Use the `dotfiles` module for all your dotfiles setup and configuration commands.
+- Add any extra shell commands to the `extra_commands.sh` file; they will be executed at the end of the post-install script.
 
 ### How the Builder Works
 
@@ -169,7 +169,6 @@ Edit `builder.config.jsonc` and set the `modules` array to include the modules y
   "modules": [
     "common", // always included
     "custom", // hardware-specific extras (e.g. sof-firmware for Galaxy Book 4)
-    "dotfiles", // dotfiles setup
     "de/hyprland", // desktop environment
     "dm/ly", // display manager
     "gfx/intel", // graphics driver

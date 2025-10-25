@@ -1,7 +1,0 @@
-{
-  "commands": [
-    "[[ -d ${HOME}/.dotfiles ]] && echo 'Dotfiles already installed'",
-    "[[ ! -d ${HOME}/.dotfiles ]] && git clone https://github.com/stenioas/dotfiles.git ${HOME}/.dotfiles && bash ${HOME}/.dotfiles/install_dotfiles.sh"
-  ],
-  "packages": []
-}

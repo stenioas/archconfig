@@ -117,6 +117,9 @@ _execute_commands() {
     _print_msg "Executing command: ${cmd}"
     eval "${cmd}" || { echo "${BRED}Error:${RESET} Command failed: ${cmd}"; exit 1; }
   done
+
+  # Extra commands
+  bash "${SCRIPT_DIR}/extra_commands.sh"
 }
 
 _clean() {
