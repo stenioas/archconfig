@@ -65,11 +65,13 @@ For advanced configuration, module customization, and details about the builder 
   archinstall --config archinstall.config.json
   ```
 
-### 7. Configure Partitioning and User Inside Archinstall
+### 7. Configure Archinstall
 
 - In the archinstall interface:
   - Set up your disk partitioning as desired.
   - Configure your user account and password.
+  - Configure bluetooth if needed (for wireless peripherals).
+  - Configure other options as needed.
 
 ### 8. Install
 
