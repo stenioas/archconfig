@@ -24,7 +24,7 @@ sudo -v                # Ensures the sudo password is ready
 _welcome() {
   clear
   echo -e "${BCYAN}${BANNER}${RESET}"
-  echo -e "\n ${ITALIC}Welcome to my ${BCYAN}${SCRIPT_TITLE}${RESET} - v${ITALIC}${SCRIPT_VERSION}${RESET}"
+  echo -e "\n Welcome to my ${BCYAN}${SCRIPT_TITLE}${RESET} - v${SCRIPT_VERSION}${RESET}"
   echo
 
   local msg=$(cat << EOF
@@ -41,14 +41,14 @@ EOF
   local alert=$(cat << EOF
   
  ── ATTENTION! ──────────────────────────────────────────────────────
-  ${ITALIC}The script will run automatically, but you may be asked for your
+  The script will run automatically, but you may be asked for your
   password. Stay alert. Please ensure you have read the usage
-  instructions entirely before proceeding.${RESET}${BYELLOW}
+  instructions entirely before proceeding.
  ────────────────────────────────────────────────────────────────────
 EOF
   )
   
-  echo -e "${ITALIC}${msg}${RESET}"
+  echo -e "${msg}"
   echo -e "${BYELLOW}${alert}${RESET}"
 }
 
@@ -165,7 +165,6 @@ TMP_DIR="$HOME/Downloads/TEMP"
 # COLORS
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
-ITALIC=$(tput sitm)
 
 # Regular Colors
 BLACK=$(tput setaf 0)
