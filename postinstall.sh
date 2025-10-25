@@ -129,6 +129,8 @@ _clean() {
   sudo pacman -Rns $(pacman -Qdtq) || true
   _print_msg "Removing temporary folder"
   sudo rm -rf "${TMP_DIR}"
+
+  echo -e "\n${BGREEN}All done!${RESET} You can now restart your system."
 }
 
 # ============================================================================
