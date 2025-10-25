@@ -94,6 +94,70 @@ archinstall/
 - **modules/**: Each file (or file in a subfolder) is a module. You can define `packages` and `commands` arrays in each.
 - **builder.config.jsonc**: Only one property: `modules`, an array listing the modules to include in your post-install. Use subfolder/module notation, e.g. `de/hyprland`.
 
+### How to Add/Customize Modules
+
+- Create or edit files in `modules/` or its subfolders for each environment, hardware, or configuration you want.
+- Use clear names: `common`, `custom`, `dotfiles`, `de/*`, `dm/*`, `gfx/*`, etc.
+- Add your packages, AUR packages, and commands to each module as needed.
+- Reference only the modules you want in `builder.config.jsonc` using the correct path (e.g. `de/hyprland`).
+
+### Advanced: Custom Commands & Dotfiles
+
+- Add any shell commands to the `commands` array in your module (e.g. enable services, update user dirs, setup dotfiles).
+- Use the `dotfiles` module for all your dotfiles setup and configuration commands.
+
+### How the Builder Works
+
+The builder system is responsible for merging all selected modules and generating the final lists of packages and commands to be installed and executed during the post-install process. It works as follows:
+
+1. **Module Selection:**
+
+- The modules you want to use are defined in `builder.config.jsonc` under the `modules` array.
+- Each module is a JSONC file (or inside a subfolder) that can define its own `packages` and `commands` arrays.
+
+2. **Merging:**
+
+- When you run `postinstall.sh`, it automatically calls `builder.py` to read the selected modules, merge all their `packages` and `commands`, and output unified lists.
+- The final **package list** will be sorted alphabetically to avoid duplicates and ensure a clean install order.
+- The **commands list** will be executed in the order in which the modules are read, and within each module, in the order they are defined. This means the execution order is determined by the order of modules in `builder.config.jsonc` and the manual order of commands inside each module file.
+
+For example, if you have two modules, `custom` and `extra`, and define the modules in `builder.config.jsonc` as:
+
+```jsonc
+{
+  "modules": ["extra", "custom"]
+}
+```
+
+And in `modules/custom.jsonc`:
+
+```jsonc
+{
+  "commands": ["echo 'custom command 2'", "echo 'custom command 1'"]
+}
+```
+
+And in `modules/extras.jsonc`:
+
+```jsonc
+{
+  "commands": ["echo 'extra command 1'", "echo 'extra command 2'"]
+}
+```
+
+The execution order will be:
+
+1. `echo 'extras command 1'`
+2. `echo 'extras command 2'`
+3. `echo 'custom command 2'`
+4. `echo 'custom command 1'`
+
+5. **Execution:**
+
+- The post-install script then installs all packages and executes all commands in the correct order.
+
+You do not need to run `builder.py` manually. The process is fully automated by `postinstall.sh`, ensuring a modular, flexible, and reproducible setup.
+
 ### Usage
 
 #### 1. Select your modules
@@ -108,7 +172,8 @@ Edit `builder.config.jsonc` and set the `modules` array to include the modules y
     "dotfiles", // dotfiles setup
     "de/hyprland", // desktop environment
     "dm/ly", // display manager
-    "gfx/intel" // graphics driver
+    "gfx/intel", // graphics driver
+    "your_custom_module" // Your own custom module
   ]
 }
 ```
@@ -124,27 +189,17 @@ Each module file (e.g. `modules/common.jsonc`, `modules/de/hyprland.jsonc`) can 
 }
 ```
 
-#### 3. Generate package and command lists
+#### 3. Run the Post-Install Script
 
-Use `builder.py` to output the merged lists:
-
-- `--list packages` : Pacman and AUR packages
-- `--list commands` : Post-install commands
-
-**Examples:**
-
-```bash
-python3 builder.py --list packages
-python3 builder.py --list commands
-```
-
-#### 4. Run the post-install script
+To automate the installation and configuration of all selected modules, simply run:
 
 ```bash
 bash postinstall.sh
 ```
 
-This will:
+> 💡 _The `postinstall.sh` script will automatically use the builder system to merge all selected modules, generate the package and command lists, and execute the necessary steps for your setup. You do not need to run `builder.py` manually._
+
+This script will:
 
 - Check your connection
 - Configure temporary folders
@@ -153,18 +208,6 @@ This will:
 - Install all pacman and AUR packages
 - Execute all post-install commands
 - Clean up
-
-### How to Add/Customize Modules
-
-- Create or edit files in `modules/` or its subfolders for each environment, hardware, or configuration you want.
-- Use clear names: `common`, `custom`, `dotfiles`, `de/*`, `dm/*`, `gfx/*`, etc.
-- Add your packages, AUR packages, and commands to each module as needed.
-- Reference only the modules you want in `builder.config.jsonc` using the correct path (e.g. `de/hyprland`).
-
-### Advanced: Custom Commands & Dotfiles
-
-- Add any shell commands to the `commands` array in your module (e.g. enable services, update user dirs, setup dotfiles).
-- Use the `dotfiles` module for all your dotfiles setup and configuration commands.
 
 ### Troubleshooting
 

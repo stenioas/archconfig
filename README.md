@@ -62,7 +62,7 @@ For advanced configuration, module customization, and details about the builder 
 
 - Start the installer with the provided config:
   ```sh
-  archinstall --config archinstall.json
+  archinstall --config archinstall.config.json
   ```
 
 ### 7. Configure Partitioning and User Inside Archinstall
