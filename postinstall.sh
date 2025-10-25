@@ -94,7 +94,7 @@ _configure_environment() {
 
 _install_aur_helper() {
   _print_title "Install YAY -  AUR helper"
-  if [[ pacman -Qi yay &> /dev/null ]]; then
+  if pacman -Qi yay &> /dev/null; then
     _print_msg "YAY is already installed"
     return
   fi
