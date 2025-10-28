@@ -213,9 +213,10 @@ This script will:
 - If a module is missing, the script will show an error and stop.
 - Make sure all modules listed in `builder.config.jsonc` exist in the `modules/` folder.
 - For builder help, run:
-  ```bash
-  python3 builder.py --help
-  ```
+
+```bash
+python3 builder.py --help
+```
 
 ### Contribution
 

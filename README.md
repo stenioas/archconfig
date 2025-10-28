@@ -12,58 +12,68 @@ For advanced configuration, module customization, and details about the builder 
 
 - Boot into the Archlinux installer.
 - Start the interactive wireless tool:
-  ```sh
-  iwctl
-  ```
+
+```bash
+iwctl
+```
+
 - Inside iwctl, run:
-  ```sh
-  device list
-  station <device> scan
-  station <device> get-networks
-  station <device> connect <SSID>
-  exit
-  ```
+
+```bash
+device list
+station <device> scan
+station <device> get-networks
+station <device> connect <SSID>
+exit
+```
+
 - Test your connection:
-  ```sh
-  ping archlinux.org
-  ```
+
+```bash
+ping 8.8.8.8
+```
 
 ### 2. Run Reflector to Improve Mirrors
 
 - Update the mirrorlist for faster downloads:
-  ```sh
-  reflector -c Brazil --latest 10 --sort rate --save /etc/pacman.d/mirrorlist --verbose
-  ```
-  _(Adjust country as needed)_
+
+```bash
+reflector -c Brazil --latest 10 --sort rate --save /etc/pacman.d/mirrorlist --verbose
+```
+
+_(Adjust country as needed)_
 
 ### 3. Update Package Database
 
 - Synchronize package databases:
-  ```sh
-  pacman -Syy
-  ```
+
+```bash
+pacman -Syy
+```
 
 ### 4. Install Git and Nano
 
 - Install essential tools:
-  ```sh
-  pacman -S git nano
-  ```
+
+```bash
+pacman -S git nano
+```
 
 ### 5. Clone the Project
 
 - Clone this repository:
-  ```sh
-  git clone https://github.com/stenioas/archinstall.git
-  cd archinstall
-  ```
+
+```bash
+git clone https://github.com/stenioas/archinstall.git && cd archinstall
+```
 
 ### 6. Run archinstall with the Project Configuration
 
 - Start the installer with the provided config:
-  ```sh
-  archinstall --config archinstall.config.json
-  ```
+
+```bash
+archinstall --config archinstall.config.json
+```
 
 ### 7. Configure Archinstall
 
@@ -82,24 +92,26 @@ For advanced configuration, module customization, and details about the builder 
 ### 9. Reconnect to the Internet After Reboot
 
 - After rebooting into your new Archlinux system, connect to the internet again using `nmtui` (if using Wi-Fi):
-  ```sh
-  nmtui
-  ```
+
+```bash
+nmtui
+```
 
 ### 10. Clone the Project Again
 
 - Clone this repository again in your new system:
-  ```sh
-  git clone https://github.com/stenioas/archinstall.git
-  cd archinstall
-  ```
+
+```bash
+git clone https://github.com/stenioas/archinstall.git && cd archinstall
+```
 
 ### 11. Run the Post-Install Script
 
 - Execute the post-install automation script:
-  ```sh
-  bash postinstall.sh
-  ```
+
+```bash
+bash postinstall.sh
+```
 
 ## Contribution
 
