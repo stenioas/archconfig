@@ -224,7 +224,7 @@ Feel free to fork, open issues, or submit pull requests to improve modularity, a
 
 ### Requirements
 
-- Archlinux base system
+- Arch Linux base system
 - Python 3
 - Bash
 - Internet connection for package installation

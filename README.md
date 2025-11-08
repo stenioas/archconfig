@@ -1,16 +1,16 @@
-# Archlinux Installation
+# Arch Linux Installation
 
-> 💡 _**This project is a personal tool.** I created it to simplify my life and automate my Archlinux installation process. It reflects my personal choices and is not a tutorial, but rather a documented guide for my own use. Feel free to use it, adapt, modify, fork, and play around, but **use it at your own risk!** I hope it helps you too!_
+> 💡 _**This project is a personal tool.** I created it to simplify my life and automate my Arch Linux installation process. It reflects my personal choices and is not a tutorial, but rather a documented guide for my own use. Feel free to use it, adapt, modify, fork, and play around, but **use it at your own risk!** I hope it helps you too!_
 
 ## Step-by-Step Installation Guide
 
-This section provides a step-by-step guide to install Archlinux using the archinstall tool, the configuration files from this repository, and the `postinstall.sh` script.
+This section provides a step-by-step guide to install Arch Linux using the archinstall tool, the configuration files from this repository, and the `postinstall.sh` script.
 
 For advanced configuration, module customization, and details about the builder system, see the [Configuration Guide](./configuration.md).
 
 ### 1. Connect Archinstaller to the Internet via iwctl
 
-- Boot into the Archlinux installer.
+- Boot into the Arch Linux installer.
 - Start the interactive wireless tool:
 
 ```bash
@@ -91,7 +91,7 @@ archinstall --config archinstall.config.json
 
 ### 9. Reconnect to the Internet After Reboot
 
-- After rebooting into your new Archlinux system, connect to the internet again using `nmtui` (if using Wi-Fi):
+- After rebooting into your new Arch Linux system, connect to the internet again using `nmtui` (if using Wi-Fi):
 
 ```bash
 nmtui

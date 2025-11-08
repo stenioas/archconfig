@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
 # Name        : postinstall.sh
-# Description : Archlinux Post-Installation Script
+# Description : Arch Linux Post-Installation Script
 # Version     : 1.0.0-beta
 # Author      : Stenio Silveira <stenioas@gmail.com>
 # Date        : 21/10/2025
@@ -29,7 +29,7 @@ _welcome() {
 
   local msg=$(cat << EOF
  This script is a personal tool. I created it to simplify my life
- and  automate my Archlinux post-installation process. It reflects
+ and  automate my Arch Linux post-installation process. It reflects
  my choices,  and is not a tutorial or a guide. Feel free to use it,
  adapt, modify, fork, and play around, but use it at your own risk!
  I hope it helps you too!
@@ -156,14 +156,14 @@ else
 fi
 
 BANNER=$(cat << 'EOF'
-
- ┌─┐┌─┐┌─┐┌┬┐  ┬┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┌─┐┌┬┐┬┌─┐┌┐┌  ┌─┐┌─┐┬─┐┬┌─┐┌┬┐
- ├─┘│ │└─┐ │───││││└─┐ │ ├─┤│  │  ├─┤ │ ││ ││││  └─┐│  ├┬┘│├─┘ │ 
- ┴  └─┘└─┘ ┴   ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴ ┴ ┴ ┴└─┘┘└┘  └─┘└─┘┴└─┴┴   ┴ 
+   ___   __   ___  ________
+  / _ | / /  / _ \/  _/ __/
+ / __ |/ /__/ ___// /_\ \  
+/_/ |_/____/_/  /___/___/  
 EOF
 )
 
-SCRIPT_TITLE="Archlinux Post-Installation Script"
+SCRIPT_TITLE="Arch Linux Post-Installation Script"
 SCRIPT_VERSION="1.0.0-beta"
 TMP_DIR="$HOME/Downloads/TEMP"
 
