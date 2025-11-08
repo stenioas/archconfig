@@ -1,0 +1,8 @@
+{
+  "commands": [
+    "sudo systemctl enable gdm" // Enable GDM display manager service
+  ],
+  "packages": [
+    "gdm" // GNOME Display Manager
+  ]
+}
