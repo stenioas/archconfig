@@ -1,5 +1,7 @@
 {
   "packages": [
+    "mesa", // Open-source implementation of the OpenGL API.
+    "lib32-mesa", // 32-bit compatibility library for Mesa (OpenGL).
     "vulkan-radeon", // Vulkan driver for AMD GPUs
     "lib32-vulkan-radeon", // 32-bit Vulkan driver for AMD GPUs
     "xf86-video-amdgpu", // Xorg video driver for AMD GPUs
