@@ -88,6 +88,10 @@ _configure_environment() {
   sudo sed -i '4,$s/^#Color/Color/' /etc/pacman.conf
   sudo sed -i '4,$s/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
   sudo sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
+  sudo sed -i '/^ParallelDownloads/a ILoveCandy' /etc/pacman.conf
+  
+  # Enable multilib if it exists and is commented
+  sudo sed -i '/^#\[multilib\]/{N;s/#\[multilib\]\n#/[multilib]\n/}' /etc/pacman.conf
 
   _print_msg "Updating mirrorlist"
   sudo reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
@@ -114,12 +118,9 @@ _install_packages() {
 _execute_commands() {
   _print_title "Execute additional commands"
   for cmd in "${CMD_LIST[@]}"; do
-    _print_msg "Executing command: ${cmd}"
+    _print_msg "Running: ${cmd}"
     eval "${cmd}" || { echo "${BRED}Error:${RESET} Command failed: ${cmd}"; exit 1; }
   done
-
-  # Extra commands
-  bash "${SCRIPT_DIR}/extra_commands.sh"
 }
 
 _clean() {
@@ -202,7 +203,7 @@ main() {
   _configure_environment
   _install_aur_helper
   _install_packages
-  _execute_commands
+  # _execute_commands
   _clean
 }
 
