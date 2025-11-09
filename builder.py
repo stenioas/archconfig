@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-
+import argparse
 import json
 import os
 import sys
@@ -30,15 +30,11 @@ def strip_jsonc_comments(line):
     return result
 
 
-# Load builder config (JSONC)
-builder_config = load_jsonc("./builder.config.jsonc")
-
-
-def collect_builder_modules():
+def collect_builder_modules(config):
     pkgs, cmds = set(), set()
 
     # Modules
-    for module in builder_config.get("modules", []):
+    for module in config.get("modules", []):
         module_path = f"./modules/{module}.jsonc"
         if not os.path.exists(module_path):
             raise KeyError(f"Error: Module file '{module_path}' not found.")
@@ -50,25 +46,42 @@ def collect_builder_modules():
 
 
 def main():
-    pkgs, cmds  = collect_builder_modules()
+    parser = argparse.ArgumentParser(
+        description="List packages or commands from builder modules."
+    )
+    parser.add_argument(
+        "-l", "--list",
+        required=True,
+        choices=["packages", "commands"],
+        help="Type of list required: packages or commands (required)."
+    )
+    parser.add_argument(
+        "-m", "--module",
+        metavar="MODULE",
+        help="Module name (optional). E.g. de/gnome or gfx/intel. When provided, MODULE is required."
+    )
 
-    def get_list_by_type(list_type):
-        if list_type == "packages":
-            return pkgs
-        elif list_type == "commands":
-            return cmds
-        else:
-            print("Invalid list type. Use one of: packages, commands.")
-            exit(1)
+    args = parser.parse_args()
 
-    if len(sys.argv) == 3 and sys.argv[1] in ("--list", "-l"):
-        list_type = sys.argv[2]
-        items = get_list_by_type(list_type)
-        print("\n".join(items))
-    elif len(sys.argv) == 2 and sys.argv[1] in ("--help", "-h"):
-        print("Usage: builder.py --list <packages|commands> or -l <packages|commands>")
-    else:
-        print("Usage: builder.py --list <packages|commands> or -l <packages|commands>")
+    builder_config = {
+        "modules": [args.module]
+    } if args.module else load_jsonc("./builder.config.jsonc")
+
+    try:
+        pkgs, cmds = collect_builder_modules(builder_config)
+    except FileNotFoundError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(2)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    items = pkgs if args.list == "packages" else cmds
+
+    if not items:
+        return
+
+    print("\n".join(items))
 
 if __name__ == "__main__":
     try:
