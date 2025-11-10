@@ -1,7 +1,16 @@
 {
   "modules": [
-    "common",
+    "codecs",
     "custom",
+    "development",
+    "docker",
+    "essentials",
+    "extras",
+    "fonts",
+    "kernels",
+    "pipewire",
+    "softwares",
+    "themes",
     "de/hyprland",
     "dm/ly",
     "gfx/intel",
