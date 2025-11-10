@@ -126,8 +126,17 @@ _execute_commands() {
 _clean() {
   _print_msg "Cleaning package cache"
   sudo pacman -Scc --noconfirm
-  _print_msg "Removing unnecessary packages"
-  sudo pacman -Rns $(pacman -Qdtq) || true
+  # Remove orphaned packages only if there are any. pacman -Qdtq exits
+  # non-zero when there are no orphans, so capture output with || true
+  # and check before calling pacman -Rns to avoid errors.
+  local orphans
+  orphans=$(pacman -Qdtq || true)
+  if [[ -n "${orphans//[[:space:]]/}" ]]; then
+    _print_msg "Removing unnecessary packages"
+    sudo pacman -Rns --noconfirm ${orphans}
+  else
+    _print_msg "No orphaned packages to remove"
+  fi
   _print_msg "Removing temporary folder"
   sudo rm -rf "${TMP_DIR}"
 
@@ -203,7 +212,7 @@ main() {
   _configure_environment
   _install_aur_helper
   _install_packages
-  # _execute_commands
+  _execute_commands
   _clean
 }
 
