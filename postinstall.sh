@@ -55,18 +55,6 @@ EOF
 _configure_environment() {
   _print_msg "Creating temp folder"
   mkdir -p ${TMP_DIR}
-
-  _print_msg "Configuring pacman"
-  sudo sed -i '4,$s/^#Color/Color/' /etc/pacman.conf
-  sudo sed -i '4,$s/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
-  sudo sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
-  sudo sed -i '/^ParallelDownloads/a ILoveCandy' /etc/pacman.conf
-  
-  # Enable multilib if it exists and is commented
-  sudo sed -i '/^#\[multilib\]/{N;s/#\[multilib\]\n#/[multilib]\n/}' /etc/pacman.conf
-
-  _print_msg "Updating mirrorlist"
-  sudo reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
 }
 
 _install_packages() {
@@ -148,12 +136,13 @@ main() {
   _check_connection
   _welcome
   _pause
+  bash ${SCRIPT_DIR}/scripts/configure-pacman.sh
   _configure_environment
   _install_packages
   _execute_commands
-  bash ${SCRIPT_DIR}/install-scripts/install-aur-packages.sh
-  bash ${SCRIPT_DIR}/install-scripts/install-docker.sh
-  bash ${SCRIPT_DIR}/install-scripts/install-dotfiles.sh
+  bash ${SCRIPT_DIR}/scripts/install-aur-packages.sh
+  bash ${SCRIPT_DIR}/scripts/install-docker.sh
+  bash ${SCRIPT_DIR}/scripts/install-dotfiles.sh
   _clean
 }
 

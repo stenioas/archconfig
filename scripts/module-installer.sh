@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
 # Name        : install-module.sh
-# Description : Module Installation Script
+# Description : This script runs commands, installs packages and enable services for a specified module.
 # Version     : 0.0.1-beta
 # Author      : Stenio Silveira <stenioas@gmail.com>
 # Date        : 09/11/2025
@@ -42,6 +42,13 @@ fi
 # COMMAND LIST
 if [[ -f ${SCRIPT_DIR}/../builder.py ]]; then
   mapfile -t CMD_LIST < <(python3 ${SCRIPT_DIR}/../builder.py --list commands --module "${MODULE}")
+else
+  CMD_LIST=()
+fi
+
+# SERVICE LIST
+if [[ -f ${SCRIPT_DIR}/../builder.py ]]; then
+  mapfile -t SERVICE_LIST < <(python3 ${SCRIPT_DIR}/../builder.py --list services --module "${MODULE}")
 else
   CMD_LIST=()
 fi

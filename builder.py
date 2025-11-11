@@ -78,9 +78,7 @@ def main():
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # Se --list for passado, apenas imprime a lista
     if args.list:
-        # Adiciona também os itens do archinstall.config.json
         if args.list == "packages":
             items = set(archinstall_config.get("packages", [])) | set(packages)
         elif args.list == "commands":
@@ -92,7 +90,6 @@ def main():
         print("\n".join(sorted(items)))
         return
 
-    # Se nenhum parâmetro, gera output.config.json mesclando
     merged_config = archinstall_config.copy()
     merged_config["custom_commands"] = list(set(archinstall_config.get("custom_commands", [])) | set(commands))
     merged_config["packages"] = sorted(list(set(archinstall_config.get("packages", [])) | set(packages)))
