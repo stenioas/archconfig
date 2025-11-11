@@ -31,7 +31,7 @@ def strip_jsonc_comments(line):
 
 
 def collect_builder_modules(config):
-    pkgs, cmds = set(), set()
+    commands, packages, services = set(), set(), set()
 
     # Modules
     for module in config.get("modules", []):
@@ -39,21 +39,22 @@ def collect_builder_modules(config):
         if not os.path.exists(module_path):
             raise KeyError(f"Error: Module file '{module_path}' not found.")
         module_src = load_jsonc(module_path)
-        pkgs.update(module_src.get("packages", []))
-        cmds.update(module_src.get("commands", []))
+        commands.update(module_src.get("commands", []))
+        packages.update(module_src.get("packages", []))
+        services.update(module_src.get("services", []))
 
-    return  sorted(pkgs), cmds
+    return  commands, sorted(packages), services
 
 
 def main():
+
     parser = argparse.ArgumentParser(
-        description="List packages or commands from builder modules."
+        description="List or merge packages, commands, and services from builder modules."
     )
     parser.add_argument(
         "-l", "--list",
-        required=True,
-        choices=["packages", "commands"],
-        help="Type of list required: packages or commands (required)."
+        choices=["commands", "packages", "services"],
+        help="Type of list required: commands, packages or services. If omitted, will merge and generate main.config.json."
     )
     parser.add_argument(
         "-m", "--module",
@@ -68,7 +69,8 @@ def main():
     } if args.module else load_jsonc("./builder.config.jsonc")
 
     try:
-        pkgs, cmds = collect_builder_modules(builder_config)
+        commands, packages, services = collect_builder_modules(builder_config)
+        archinstall_config = load_jsonc("./archinstall.config.json")
     except FileNotFoundError as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(2)
@@ -76,12 +78,29 @@ def main():
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
-    items = pkgs if args.list == "packages" else cmds
-
-    if not items:
+    # Se --list for passado, apenas imprime a lista
+    if args.list:
+        # Adiciona também os itens do archinstall.config.json
+        if args.list == "packages":
+            items = set(archinstall_config.get("packages", [])) | set(packages)
+        elif args.list == "commands":
+            items = set(archinstall_config.get("custom_commands", [])) | set(commands)
+        else:
+            items = set(archinstall_config.get("services", [])) | set(services)
+        if not items:
+            return
+        print("\n".join(sorted(items)))
         return
 
-    print("\n".join(items))
+    # Se nenhum parâmetro, gera output.config.json mesclando
+    merged_config = archinstall_config.copy()
+    merged_config["custom_commands"] = list(set(archinstall_config.get("custom_commands", [])) | set(commands))
+    merged_config["packages"] = sorted(list(set(archinstall_config.get("packages", [])) | set(packages)))
+    merged_config["services"] = sorted(list(set(archinstall_config.get("services", [])) | set(services)))
+
+    with open("output.config.json", "w", encoding="utf-8") as f:
+        json.dump(merged_config, f, indent=2, ensure_ascii=False)
+    print("output.config.json generated successfully.")
 
 if __name__ == "__main__":
     try:
