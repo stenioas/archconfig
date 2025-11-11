@@ -1,9 +1,4 @@
 {
-  "app_config": {
-    "audio_config": {
-      "audio": "pipewire"
-    }
-  },
   "custom_commands": [],
   "kernels": ["linux-lts"],
   "locale_config": {
@@ -11,13 +6,10 @@
     "sys_enc": "UTF-8",
     "sys_lang": "pt_BR.UTF-8"
   },
-  "mirror_config": {
-    "optional_repositories": ["multilib"]
-  },
   "network_config": {
     "type": "nm"
   },
-  "packages": ["linux-lts-headers", "git", "nano", "reflector"],
+  "packages": ["linux-lts-headers"],
   "services": [],
   "timezone": "America/Fortaleza",
   "version": "3.0.11"
