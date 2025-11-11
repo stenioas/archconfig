@@ -46,7 +46,7 @@ else
   CMD_LIST=()
 fi
 
-. ${SCRIPT_DIR}/../libs/utils.lib
+. ${SCRIPT_DIR}/../libs/utils.sh
 
 # ============================================================================
 # RUN INSTALLATION

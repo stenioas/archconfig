@@ -25,7 +25,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 IFS=$'\n\t'
 
-. ${SCRIPT_DIR}/../libs/utils.lib
+. ${SCRIPT_DIR}/../libs/utils.sh
 
 # ============================================================================
 # RUN INSTALLATION
