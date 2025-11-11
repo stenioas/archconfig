@@ -24,8 +24,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 IFS=$'\n\t'
 
-TMP_DIR="${HOME}/Downloads/TEMP"
-
 declare -a PKG_LIST=(
   "bruno-bin"
   "spotify"
@@ -46,11 +44,10 @@ main() {
     return
   fi
 
-  mkdir -p "${TMP_DIR}"
-  [[ -d "${TMP_DIR}/yay" ]] && rm -rf "${TMP_DIR}/yay"
+  [[ -d "${SCRIPT_DIR}/yay" ]] && rm -rf "${SCRIPT_DIR}/yay"
 
-  git clone https://aur.archlinux.org/yay.git "${TMP_DIR}/yay"
-  cd "${TMP_DIR}/yay"
+  git clone https://aur.archlinux.org/yay.git "${SCRIPT_DIR}/yay"
+  cd "${SCRIPT_DIR}/yay"
   makepkg -csi --noconfirm
   cd ${HOME}
 

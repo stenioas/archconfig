@@ -44,3 +44,5 @@ main() {
   git clone https://github.com/stenioas/dotfiles.git ${TARGET_DIR}
   bash ${TARGET_DIR}/install-dotfiles.sh
 }
+
+main

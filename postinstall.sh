@@ -52,25 +52,7 @@ EOF
   echo -e "${BYELLOW}${alert}${RESET}"
 }
 
-_configure_environment() {
-  _print_msg "Creating temp folder"
-  mkdir -p ${TMP_DIR}
-}
-
-_install_packages() {
-  _print_title "Install packages"
-  sudo pacman -S --noconfirm --needed "${PKG_LIST[@]}"
-}
-
-_execute_commands() {
-  _print_title "Execute additional commands"
-  for cmd in "${CMD_LIST[@]}"; do
-    _print_msg "==> Running: ${cmd}"
-    eval "${cmd}" || { echo "${BRED}Error:${RESET} Command failed: ${cmd}"; exit 1; }
-  done
-}
-
-_clean() {
+_finish() {
   _print_msg "Cleaning package cache"
   sudo pacman -Scc --noconfirm
   # Remove orphaned packages only if there are any. pacman -Qdtq exits
@@ -84,8 +66,6 @@ _clean() {
   else
     _print_msg "No orphaned packages to remove"
   fi
-  _print_msg "Removing temporary folder"
-  sudo rm -rf "${TMP_DIR}"
 
   echo -e "\n${BGREEN}All done!${RESET} You can now restart your system."
 }
@@ -123,7 +103,6 @@ EOF
 
 SCRIPT_TITLE="Arch Linux Post-Installation Script"
 SCRIPT_VERSION="1.0.0-beta"
-TMP_DIR="$HOME/Downloads/TEMP"
 
 . ${SCRIPT_DIR}/libs/tput.sh
 . ${SCRIPT_DIR}/libs/utils.sh
@@ -137,13 +116,10 @@ main() {
   _welcome
   _pause
   bash ${SCRIPT_DIR}/scripts/configure-pacman.sh
-  _configure_environment
-  _install_packages
-  _execute_commands
   bash ${SCRIPT_DIR}/scripts/install-aur-packages.sh
   bash ${SCRIPT_DIR}/scripts/install-docker.sh
   bash ${SCRIPT_DIR}/scripts/install-dotfiles.sh
-  _clean
+  _finish
 }
 
 main
