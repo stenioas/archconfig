@@ -1,9 +1,9 @@
 {
-  "commands": [
-    "sudo systemctl enable fstrim.timer" // Periodic TRIM for SSDs and NVMe drives.
-  ],
   "packages": [
     "intel-ucode", // Intel CPU microcode updates.
     "sof-firmware" // Sound Open Firmware for audio DSPs.
+  ],
+  "services": [
+    "fstrim.timer" // Periodic TRIM for SSDs and NVMe drives.
   ]
 }

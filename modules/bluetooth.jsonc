@@ -1,0 +1,10 @@
+{
+  "packages": [
+    "bluez", // Bluetooth support.
+    "bluez-utils", // Bluetooth utilities.
+    "bluez-libs" // Bluetooth libraries.
+  ],
+  "services": [
+    "bluetooth.service" // Bluetooth service.
+  ]
+}
