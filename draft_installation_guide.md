@@ -1,6 +1,17 @@
+# 🚀 Guia de instalação do Hyprland no Arch Linux - Em busca do desktop quase perfeito!
+
 ## 1. Sistema base
 
-- Gestor de arquivos: Nautilus
+Instale o sistema base utilizando o archinstall e a config disponível neste repositório.
+
+```bash
+archinstall --config archinstall.config.json
+```
+
+## 2. Modulos base
+
+- WM: Hyprland
+- Gestor de arquivos: Thunar
 - Terminal: Kitty
 
 ## 2. Componentes
