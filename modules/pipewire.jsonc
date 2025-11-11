@@ -6,7 +6,6 @@
     "pipewire-pulse", // PulseAudio support for PipeWire.
     "pipewire-audio", // Audio support for PipeWire.
     "wireplumber", // Session manager for PipeWire.
-    "lib32-pipewire", // 32-bit compatibility library for PipeWire.
-    "gst-plugin-pipewire" // GStreamer plugin for PipeWire.
+    "lib32-pipewire" // 32-bit compatibility library for PipeWire.
   ]
 }
