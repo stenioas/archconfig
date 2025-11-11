@@ -2,7 +2,8 @@
   "packages": [
     "bluez", // Bluetooth support.
     "bluez-utils", // Bluetooth utilities.
-    "bluez-libs" // Bluetooth libraries.
+    "bluez-libs", // Bluetooth libraries.
+    "blueman" // Bluetooth manager.
   ],
   "services": [
     "bluetooth.service" // Bluetooth service.
