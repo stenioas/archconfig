@@ -46,21 +46,22 @@ else
   CMD_LIST=()
 fi
 
+. ${SCRIPT_DIR}/../libs/utils.lib
+
 # ============================================================================
 # RUN INSTALLATION
 # ----------------------------------------------------------------------------
 
-echo "MODULE: ${MODULE}"
-
+_print_title "MODULE: ${MODULE}"
 # PACKAGES INSTALLATION
-echo ":: Install packages:"
+_print_title "Install packages"
 yay -S --noconfirm --needed "${PKG_LIST[@]}"
 
 # COMMANDS EXECUTION
-echo ":: Execute commands:"
+_print_title "Execute commands"
 if [[ ${#CMD_LIST[@]} -ne 0 ]]; then
   for cmd in "${CMD_LIST[@]}"; do
-    echo "==> Running: ${cmd}"
+    _print_msg "==> Running: ${cmd}"
     eval "${cmd}" || { echo "${BRED}Error:${RESET} Command failed: ${cmd}"; exit 1; }
   done
 fi
