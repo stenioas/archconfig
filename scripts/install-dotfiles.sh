@@ -34,7 +34,7 @@ IFS=$'\n\t'
 # ----------------------------------------------------------------------------
 
 main() {
-  _print_title "Dotfiles installation"
+  _print_title "Install Dotfiles"
   if [[ -d ${TARGET_DIR} ]]; then
     _print_msg "Dotfiles folder already exists. A backup will be created in ${TARGET_DIR}_old_$(date +%Y%m%d%H%M%S)"
     mv ${TARGET_DIR} "${TARGET_DIR}_old_$(date +%Y%m%d%H%M%S)"

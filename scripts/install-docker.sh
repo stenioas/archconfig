@@ -32,7 +32,7 @@ IFS=$'\n\t'
 # ----------------------------------------------------------------------------
 
 main() {
-  _print_title "Docker installation"
+  _print_title "Install Docker"
   sudo pacman -S --noconfirm --needed docker docker-compose
   _print_msg "Enabling Docker service"
   sudo systemctl enable --now docker

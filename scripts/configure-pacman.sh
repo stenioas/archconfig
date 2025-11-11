@@ -32,7 +32,7 @@ IFS=$'\n\t'
 # ----------------------------------------------------------------------------
 
 main() {
-  _print_title "Configuring pacman"
+  _print_title "Configure pacman"
   _print_msg "Configuring pacman.conf"
   sudo sed -i '4,$s/^#Color/Color/' /etc/pacman.conf
   sudo sed -i '4,$s/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf

@@ -38,7 +38,7 @@ declare -a PKG_LIST=(
 # ----------------------------------------------------------------------------
 
 main() {
-  _print_title "Install YAY AUR helper"
+  _print_title "Install AUR helper"
   if pacman -Qi yay &> /dev/null; then
     _print_msg "YAY is already installed"
     return
@@ -51,7 +51,7 @@ main() {
   makepkg -csi --noconfirm
   cd ${HOME}
 
-  _print_title "Installing AUR packages with YAY"
+  _print_title "Install AUR packages"
   yay -S --noconfirm --needed "${PKG_LIST[@]}"
 }
 
