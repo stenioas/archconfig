@@ -52,34 +52,6 @@ EOF
   echo -e "${BYELLOW}${alert}${RESET}"
 }
 
-_pause() {
-  local pause_msg=" Press any key to continue or [ctrl + c] to exit..."
-  echo -e "\n${pause_msg}"
-
-  tput civis
-  read -n 1 -s -r
-  tput cnorm
-}
-
-_print_title() {
-  local title="${BYELLOW}${1^^}${RESET}"
-  echo -e "\n${title}"
-}
-
-_print_msg() {
-  local message="${1}..."
-  echo -e "${message}"
-}
-
-_check_connection() {
-  ping -q -w 1 -c 1 8.8.8.8
-
-  if [[ $? -ne 0 ]]; then
-    echo -e "You have no connection!"
-    exit 1
-  fi
-}
-
 _configure_environment() {
   _print_msg "Creating temp folder"
   mkdir -p ${TMP_DIR}
@@ -97,28 +69,15 @@ _configure_environment() {
   sudo reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
 }
 
-_install_aur_helper() {
-  _print_title "Install YAY -  AUR helper"
-  if pacman -Qi yay &> /dev/null; then
-    _print_msg "YAY is already installed"
-    return
-  fi
-  [[ -d "${TMP_DIR}/yay" ]] && rm -rf "${TMP_DIR}/yay"
-  git clone https://aur.archlinux.org/yay.git "${TMP_DIR}/yay"
-  cd "${TMP_DIR}/yay"
-  makepkg -csi --noconfirm
-  cd ${HOME}
-}
-
 _install_packages() {
   _print_title "Install packages"
-  yay -S --noconfirm --needed "${PKG_LIST[@]}"
+  sudo pacman -S --noconfirm --needed "${PKG_LIST[@]}"
 }
 
 _execute_commands() {
   _print_title "Execute additional commands"
   for cmd in "${CMD_LIST[@]}"; do
-    _print_msg "Running: ${cmd}"
+    _print_msg "==> Running: ${cmd}"
     eval "${cmd}" || { echo "${BRED}Error:${RESET} Command failed: ${cmd}"; exit 1; }
   done
 }
@@ -166,10 +125,11 @@ else
 fi
 
 BANNER=$(cat << 'EOF'
-   ___   __   ___  ________
-  / _ | / /  / _ \/  _/ __/
- / __ |/ /__/ ___// /_\ \  
-/_/ |_/____/_/  /___/___/  
+     _    _     ____ ___ ____  
+    / \  | |   |  _ \_ _/ ___| 
+   / _ \ | |   | |_) | |\___ \ 
+  / ___ \| |___|  __/| | ___) |
+ /_/   \_\_____|_|  |___|____/ 
 EOF
 )
 
@@ -177,29 +137,8 @@ SCRIPT_TITLE="Arch Linux Post-Installation Script"
 SCRIPT_VERSION="1.0.0-beta"
 TMP_DIR="$HOME/Downloads/TEMP"
 
-# COLORS
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
-
-# Regular Colors
-BLACK=$(tput setaf 0)
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-BLUE=$(tput setaf 4)
-PURPLE=$(tput setaf 5)
-CYAN=$(tput setaf 6)
-WHITE=$(tput setaf 7)
-
-# Bold Colors
-BBLACK=${BOLD}${BLACK}
-BRED=${BOLD}${RED}
-BGREEN=${BOLD}${GREEN}
-BYELLOW=${BOLD}${YELLOW}
-BBLUE=${BOLD}${BLUE}
-BPURPLE=${BOLD}${PURPLE}
-BCYAN=${BOLD}${CYAN}
-BWHITE=${BOLD}${WHITE}
+. ${SCRIPT_DIR}/libs/tput.sh
+. ${SCRIPT_DIR}/libs/utils.sh
 
 # ============================================================================
 # MAIN
@@ -210,9 +149,11 @@ main() {
   _welcome
   _pause
   _configure_environment
-  _install_aur_helper
   _install_packages
   _execute_commands
+  bash ${SCRIPT_DIR}/install-scripts/install-aur-packages.sh
+  bash ${SCRIPT_DIR}/install-scripts/install-docker.sh
+  bash ${SCRIPT_DIR}/install-scripts/install-dotfiles.sh
   _clean
 }
 
