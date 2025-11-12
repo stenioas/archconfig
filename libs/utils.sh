@@ -29,8 +29,8 @@ _print_title() {
 }
 
 _print_msg() {
-  local message="${1}..."
-  echo -e "${message}"
+  local message="${1}"
+  echo -e "${BYELLOW}${message}${RESET}"
 }
 
 _check_connection() {

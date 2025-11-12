@@ -32,18 +32,18 @@ IFS=$'\n\t'
 # ----------------------------------------------------------------------------
 
 main() {
-  _print_title "Configure pacman"
-  _print_msg "Configuring pacman.conf"
+  _print_title "Pacman Configuration"
+  _print_msg "Configuring pacman.conf..."
   sudo sed -i '4,$s/^#Color/Color/' /etc/pacman.conf
   sudo sed -i '4,$s/^#VerbosePkgLists/VerbosePkgLists/' /etc/pacman.conf
   sudo sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
   sudo sed -i '/^ParallelDownloads/a ILoveCandy' /etc/pacman.conf
   
   # Enable multilib if it exists and is commented
-  _print_msg "Enabling multilib repository"
+  _print_msg "Enabling multilib repository..."
   sudo sed -i '/^#\[multilib\]/{N;s/#\[multilib\]\n#/[multilib]\n/}' /etc/pacman.conf
 
-  _print_msg "Updating mirrorlist"
+  _print_msg "Updating mirrorlist..."
   sudo reflector -c Brazil --latest 10 --sort rate --verbose --save /etc/pacman.d/mirrorlist
 
   _print_msg "Configuring pacman completed successfully!"

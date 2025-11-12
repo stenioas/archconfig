@@ -23,8 +23,8 @@ sudo -v                # Ensures the sudo password is ready
 
 _welcome() {
   clear
-  echo -e "${BCYAN}${BANNER}${RESET}"
-  echo -e "\n Welcome to my ${BCYAN}${SCRIPT_TITLE}${RESET} - v${SCRIPT_VERSION}${RESET}"
+  _print_msg "${BCYAN}${BANNER}${RESET}"
+  _print_msg "\n Welcome to my ${BCYAN}${SCRIPT_TITLE}${RESET} - v${SCRIPT_VERSION}${RESET}"
   echo
 
   local msg=$(cat << EOF
@@ -48,26 +48,12 @@ EOF
 EOF
   )
   
-  echo -e "${msg}"
-  echo -e "${BYELLOW}${alert}${RESET}"
+  _print_msg "${msg}"
+  _print_msg "${BYELLOW}${alert}${RESET}"
 }
 
 _finish() {
-  _print_msg "Cleaning package cache"
-  sudo pacman -Scc --noconfirm
-  # Remove orphaned packages only if there are any. pacman -Qdtq exits
-  # non-zero when there are no orphans, so capture output with || true
-  # and check before calling pacman -Rns to avoid errors.
-  local orphans
-  orphans=$(pacman -Qdtq || true)
-  if [[ -n "${orphans//[[:space:]]/}" ]]; then
-    _print_msg "Removing unnecessary packages"
-    sudo pacman -Rns --noconfirm ${orphans}
-  else
-    _print_msg "No orphaned packages to remove"
-  fi
-
-  echo -e "\n${BGREEN}All done!${RESET} You can now restart your system."
+  _print_msg "\n${BGREEN}All done! ${BCYAN}You can now restart your system.${RESET}"
 }
 
 # ============================================================================
@@ -75,22 +61,6 @@ _finish() {
 # ----------------------------------------------------------------------------
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-IFS=$'\n\t'
-
-# PACKAGE LIST
-if [[ -f ${SCRIPT_DIR}/builder.py ]]; then
-  mapfile -t PKG_LIST < <(python3 ${SCRIPT_DIR}/builder.py --list packages)
-else
-  PKG_LIST=()
-fi
-
-# COMMAND LIST
-if [[ -f ${SCRIPT_DIR}/builder.py ]]; then
-  mapfile -t CMD_LIST < <(python3 ${SCRIPT_DIR}/builder.py --list commands)
-else
-  CMD_LIST=()
-fi
 
 BANNER=$(cat << 'EOF'
      _    _     ____ ___ ____  
@@ -119,6 +89,7 @@ main() {
   bash ${SCRIPT_DIR}/scripts/install-aur-packages.sh
   bash ${SCRIPT_DIR}/scripts/install-docker.sh
   bash ${SCRIPT_DIR}/scripts/install-dotfiles.sh
+  bash ${SCRIPT_DIR}/scripts/clean-system.sh
   _finish
 }
 

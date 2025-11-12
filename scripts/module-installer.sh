@@ -50,7 +50,7 @@ fi
 if [[ -f ${SCRIPT_DIR}/../builder.py ]]; then
   mapfile -t SERVICE_LIST < <(python3 ${SCRIPT_DIR}/../builder.py --list services --module "${MODULE}")
 else
-  CMD_LIST=()
+  SVC_LIST=()
 fi
 
 . ${SCRIPT_DIR}/../libs/utils.sh
@@ -61,14 +61,25 @@ fi
 
 _print_title "MODULE: ${MODULE}"
 # PACKAGES INSTALLATION
-_print_title "Install packages"
-yay -S --noconfirm --needed "${PKG_LIST[@]}"
+if [[ ${#PKG_LIST[@]} -ne 0 ]]; then
+  _print_title "Package installation"
+  yay -S --noconfirm --needed "${PKG_LIST[@]}"
+fi
 
 # COMMANDS EXECUTION
-_print_title "Execute commands"
 if [[ ${#CMD_LIST[@]} -ne 0 ]]; then
+  _print_title "Command execution"
   for cmd in "${CMD_LIST[@]}"; do
-    _print_msg "==> Running: ${cmd}"
+    _print_msg "==> Running: ${cmd}..."
     eval "${cmd}" || { echo "${BRED}Error:${RESET} Command failed: ${cmd}"; exit 1; }
+  done
+fi
+
+# SERVICES ENABLEMENT
+if [[ ${#SERVICE_LIST[@]} -ne 0 ]]; then
+  _print_title "Service enablement"
+  for service in "${SERVICE_LIST[@]}"; do
+    _print_msg "==> Enabling service: ${service}..."
+    sudo systemctl enable --now "${service}" || { echo "${BRED}Error:${RESET} Failed to enable service: ${service}"; exit 1; }
   done
 fi
