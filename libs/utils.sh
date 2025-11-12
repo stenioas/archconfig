@@ -30,7 +30,7 @@ _print_title() {
 
 _print_msg() {
   local message="${1}"
-  echo -e "${BYELLOW}${message}${RESET}"
+  echo -e "${BCYAN}${message}${RESET}"
 }
 
 _check_connection() {
