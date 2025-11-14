@@ -5,6 +5,7 @@
   "packages": [
     "hyprland", // Wayland compositor for dynamic tiling
     "hyprlock", // Screen locker for Hyprland
+    "hyprsunset", // Blue light filter for Hyprland
     "hypridle", // Idle management daemon for Hyprland
     "hyprcursor", // Cursor theme specification for Hyprland
     "hyprpaper", // Wallpaper utility for Hyprland
